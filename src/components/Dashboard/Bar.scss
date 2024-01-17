@@ -1,0 +1,24 @@
+$icon-color: black;
+$background-color: rgb(199, 148, 82);
+
+.nav {
+    .nav-item {
+        .active {
+            background-color: $background-color !important;
+        }
+
+        .nav-link {
+            color: $icon-color;
+        }
+
+        .nav-link:hover {
+            background-color: $background-color;
+        }
+    }
+}
+
+.dropdown-center {
+    .bi {
+        color: $icon-color;
+    }
+}

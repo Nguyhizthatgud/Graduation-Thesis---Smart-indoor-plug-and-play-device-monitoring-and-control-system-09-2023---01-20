@@ -1,0 +1,32 @@
+{
+  "dataroom": [
+    {
+      "name": "Phòng 1",
+      "description": "1 thiết bị",
+      "timeCreated": "12/15/2023, 6:16:30 PM",
+      "id": 1
+    },
+    {
+      "name": "da",
+      "description": "da",
+      "timeCreated": "12/15/2023, 6:31:11 PM",
+      "id": 2
+    },
+    {
+      "name": "adadada",
+      "description": "dâdadad",
+      "timeCreated": "12/15/2023, 9:39:27 PM",
+      "id": 3
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}
