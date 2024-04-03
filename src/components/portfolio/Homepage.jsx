@@ -67,7 +67,6 @@ function Homepage() {
                         <Space align='baseline' direction='vertical' style={{ display: stepuserinfo ? 'block' : 'none' }}>
                             <Badge color="rgb(45, 183, 245)" text="Cập nhật dữ liệu người dùng " />
                             <Badge color="rgb(45, 183, 245)" text="Cập nhật dữ liệu sinh trắc" />
-
                         </Space>
                     </Col>
                 </Row>
