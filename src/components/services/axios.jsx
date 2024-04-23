@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: "http://159.223.71.166:5010"
+  baseURL: "http://157.245.51.60:5010",
 });
 instance.interceptors.request.use(
   (config) => {
@@ -10,12 +10,12 @@ instance.interceptors.request.use(
       config.headers["Authorization"] = `Bearer ${token}`;
     }
     return config;
-  }, 
+  },
   (error) => {
     console.log(error);
-    console.log("error"); 
-   // remove token from local storage
-    if(error.response.status === 401){
+    console.log("error");
+    // remove token from local storage
+    if (error.response.status === 401) {
       localStorage.removeItem("user");
     }
     return Promise.reject(error);
@@ -27,7 +27,7 @@ instance.interceptors.response.use(
   },
   (error) => {
     // remove token from local storage
-    if(error.response.status === 401){
+    if (error.response.status === 401) {
       localStorage.removeItem("user");
       window.location.href = "/auth";
     }

@@ -3,7 +3,7 @@ import { Col, Divider, Row } from "antd";
 import { Link } from "react-router-dom";
 import { Button, Form, Input, InputNumber } from "antd";
 import { useNavigate } from "react-router-dom";
-
+import { TbUserSquare } from "react-icons/tb";
 import { LoadingOutlined, HomeOutlined, UserOutlined, HomeFilled } from "@ant-design/icons";
 import { Breadcrumb } from 'antd';
 import Tooltip from "@mui/material/Tooltip";
@@ -232,7 +232,15 @@ function RegisterPage() {
                             style={{ width: 300, height: 300, paddingBottom: 20, paddingTop: 20 }}
                           />
                         ) : (
-                          <video ref={videoRef} autoPlay style={{ width: 300, height: 300 }} />
+                        <div>
+                            <div className="framebox" style={{ width: 300, height: 300, display: "flex" ,position: "absolute", zIndex:"1", justifyContent:"center", alignItems:"center"}}>
+                            <div className="facebox" style={{ width: "50%", height: "50%",display: "flex",alignItems:"center",justifyContent:"center",borderRadius: "10%"}}>
+                                <div></div>
+                                <TbUserSquare style={{ fontSize: '50px', opacity: 0.3}}/></div>
+                            </div>
+                            <video ref={videoRef} autoPlay style={{ width: 300, height: 300 }} />
+                        </div>
+                         
                         )}
                       </Form.Item>
                       <Form.Item>

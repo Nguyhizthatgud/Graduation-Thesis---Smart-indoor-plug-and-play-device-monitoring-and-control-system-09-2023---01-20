@@ -3,17 +3,21 @@ import * as faceapi from 'face-api.js'
 import { Col, Divider, Row } from "antd";
 import { Button, Form, Input, InputNumber, Checkbox } from "antd";
 import { useNavigate } from "react-router-dom";
-import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
+import { LoadingOutlined, HomeFilled } from "@ant-design/icons";
 import { UserContext } from "../context/ContextProvider";
 import Tooltip from "@mui/material/Tooltip";
 import { ToastContainer, toast } from "react-toastify";
+import { TbUserSquare } from "react-icons/tb";
 
+
+import { Breadcrumb } from 'antd';
 // use context set value for context
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import instance from "./services/axios";
 import "react-toastify/dist/ReactToastify.css";
 import "./Loginform.scss";
 import { Alert, Space } from 'antd';
+import zIndex from "@mui/material/styles/zIndex";
 function dataURLtoFile(dataurl, filename) {
   var arr = dataurl.split(","),
     mime = arr[0].match(/:(.*?);/)[1],
@@ -64,6 +68,18 @@ function FaceIdPage() {
   const onMediaError = (error) => {
     console.error("media error", error);
   };
+  if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+    // Use the getUserMedia API
+    navigator.mediaDevices.getUserMedia({ video: true })
+      .then(function(stream) {
+        // Use the stream
+      })
+      .catch(function(err) {
+        // Handle error
+      });
+  } else {
+    console.log('getUserMedia is not supported in this browser');
+  }
   useMemo(() => {
     navigator.mediaDevices.getUserMedia(mediaStreamConstraints).then(onMediaSuccess).catch(onMediaError);
   }, []);
@@ -83,7 +99,7 @@ function FaceIdPage() {
     // convert base64 to file
     const file = dataURLtoFile(image.src, "image.jpg");
     // gen new toast and update
-
+    clearInterval();
     formData.append("images", file);
     try {
       // react toastify chain
@@ -116,35 +132,29 @@ function FaceIdPage() {
           closeOnClick: true
         });
       setTimeout(() => {
-        setLoading(false);
+        setLoading(false);  
         handleReset();
       }, 2000);
     }
     // wait 1s
   };
   const handleVideoOnPlaying = () => {
-    //detect the faces in the video frame by using Tiny Face Detector to find all the faces present in the image and then using the
-    //setInterval to draw the frame
-    setInterval(async () => {
+    setTimeout(() => {
+      // Your existing code here...
       if (initializing) {
         setInitializing(false);
       }
-      canvasRef.current.innerHTML = faceapi.createCanvasFromMedia(videoRef.current);
-      const detections = await faceapi.detectAllFaces(videoRef.current, new faceapi.TinyFaceDetectorOptions).withFaceLandmarks();
-      const displaySize = { width: videoWidth, height: videoHeight };
-      faceapi.matchDimensions(canvasRef.current, displaySize);
-      const resizeDectections = faceapi.resizeResults(detections, displaySize);
-      canvasRef.current.getContext('2d').clearRect(0, 0, videoWidth, videoHeight);
-      faceapi.draw.drawDetections(canvasRef.current, resizeDectections);
-      //faceapi.draw.drawFaceLandmarks(canvasRef.current, resizeDectections);
-      // console.log(detections)
-    }, 500)
+    }, 1000);
   }
+
   const handleReset = () => {
     setImage(null);
     // reset video
     navigator.mediaDevices.getUserMedia(mediaStreamConstraints).then(onMediaSuccess).catch(onMediaError);
   };
+  //line chart
+ 
+
   return (
     <div className="app vh-100  d-flex align-items-center">
       <div className="container bg-tertiary">
@@ -168,7 +178,7 @@ function FaceIdPage() {
                       type="success"
                       showIcon
                     /> : <Alert
-                      message="Vui Lòng định vị gương mặt khi đang kiểm tra dữ liệu ahihi."
+                      message="Vui Lòng định vị gương mặt trong khung hình."
                       type="info"
                       showIcon
                     />}
@@ -181,8 +191,12 @@ function FaceIdPage() {
                       alignItems: "center"
                     }}
                   >
-                    <video ref={videoRef} autoPlay muted onPlay={handleVideoOnPlaying} style={{ width: 300, height: 300 }} />
-                    <canvas ref={canvasRef} height={videoHeight} width={videoWidth} className='position-absolute ' />
+                    <div className="framebox" style={{ width: 300, height: 300, display: "flex" ,position: "absolute", zIndex:"1", justifyContent:"center", alignItems:"center"}}>
+                      {initializing ? null : <div className="facebox" style={{ width: "50%", height: "50%",display: "flex",alignItems:"center",justifyContent:"center",borderRadius: "10%"}}>
+                      <div></div>
+                      <TbUserSquare style={{ fontSize: '50px', opacity: 0.3}}/></div>}
+                    </div>
+                    <video ref={videoRef} autoPlay onPlay={handleVideoOnPlaying} muted style={{ width: 300, height: 300 }} />
                     <Button type="primary" onClick={handleSubmit} disabled={loading === true ? true : false}>
                       {
                         loading === true ? (
@@ -194,6 +208,29 @@ function FaceIdPage() {
                     </Button>
                   </div>
                 </div>
+                <Divider
+                  style={{ display: 'flex-row', flexWrap: 'wrap', paddingTop: "7rem" }} >
+                  <Breadcrumb
+                    items={[
+                      {
+                        href: '/',
+                        title: (<>
+                          <HomeFilled />
+                          <span>Homepage</span>
+                        </>),
+                      },
+                      {
+                        href: '/auth',
+                        title: (
+                          <>
+                            <UserOutlined />
+                            <span>sign-in page</span>
+                          </>
+                        ),
+                      }
+                    ]}
+                  />
+                </Divider>
               </div>
             </div>
           </div>

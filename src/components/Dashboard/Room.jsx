@@ -18,7 +18,7 @@ import {
   Table,
   Tag,
   Col,
-  Select
+  Select,
 } from "antd";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -26,10 +26,8 @@ import ButtonGroup from "@mui/material/ButtonGroup";
 import Alert from "@mui/material/Alert";
 import Stack from "@mui/material/Stack";
 import { Divider } from "antd";
-import { PoweroffOutlined } from "@ant-design/icons";
-import { Button as button1, Flex } from "antd";
+
 import instance from "../services/axios";
-import { useNavigate } from "react-router-dom";
 
 function Room({ data, setData }) {
   const [dataroom, dataroomchange] = useState(null);
@@ -44,7 +42,7 @@ function Room({ data, setData }) {
   // update to parent component
   useEffect(() => {
     const getAllKey = async () => {
-      websocket.current = new WebSocket("ws://159.223.71.166:8120");
+      websocket.current = new WebSocket("ws://152.42.182.166:8120");
       const res = await instance.get("/key");
       // update to parent component
       // establish websocket
@@ -63,7 +61,7 @@ function Room({ data, setData }) {
               res.data.map((item) => {
                 return {
                   ...item,
-                  isActive: false
+                  isActive: false,
                 };
               })
             );
@@ -79,7 +77,7 @@ function Room({ data, setData }) {
                   if (item.key === data[i].id) {
                     return {
                       ...item,
-                      isActive: true
+                      isActive: true,
                     };
                   }
                   return item;
@@ -108,10 +106,10 @@ function Room({ data, setData }) {
           device3: values.device3,
           device4: {
             label: values.device4,
-            Chart: type
+            Chart: type,
           },
           device5: values.device5,
-          device6: values.device6
+          device6: values.device6,
         });
         // update dataroom
         const newDataroom = dataroom.map((item) => {
@@ -129,10 +127,10 @@ function Room({ data, setData }) {
           device3: values.device3,
           device4: {
             label: values.device4,
-            Chart: type
+            Chart: type,
           },
           device5: values.device5,
-          device6: values.device6
+          device6: values.device6,
         });
         dataroomchange([...dataroom, res.data]);
       }
@@ -141,7 +139,9 @@ function Room({ data, setData }) {
       // reset form
       form.resetFields();
       // show toast
-      toast.success(edit ? "Cập nhật phòng thành công" : "Tạo phòng thành công");
+      toast.success(
+        edit ? "Cập nhật phòng thành công" : "Tạo phòng thành công"
+      );
       setId(null);
       setEdit(false);
       setGetAgian(!getAgain);
@@ -168,7 +168,17 @@ function Room({ data, setData }) {
   const showModal = () => {
     setIsModalOpen(true);
   };
-  const showModalEdit = ({ id, name, device1, device2, device3, device4, device4Type, device5, device6 }) => {
+  const showModalEdit = ({
+    id,
+    name,
+    device1,
+    device2,
+    device3,
+    device4,
+    device4Type,
+    device5,
+    device6,
+  }) => {
     form.setFieldsValue({
       roomname: name,
       device1: device1,
@@ -177,7 +187,7 @@ function Room({ data, setData }) {
       device4: device4,
       device4Type: device4Type,
       device5: device5,
-      device6: device6
+      device6: device6,
     });
     setId(id);
     setIsModalOpen(true);
@@ -202,12 +212,21 @@ function Room({ data, setData }) {
         </div>
         <div className="badge-button mt-3 d-flex ">
           <button className="btn btn-outline-secondary btn-sm me-3">
-            Tổng số thiết bị <span className="badge text-bg-secondary">{dataroom && dataroom.length}</span>
+            Tổng số thiết bị{" "}
+            <span className="badge text-bg-secondary">
+              {dataroom && dataroom.length}
+            </span>
           </button>
           <button className="btn btn-outline-secondary  btn-sm">
-            Thiết bị đang hoạt động <span className="badge text-bg-secondary">{active}</span>
+            Thiết bị đang hoạt động{" "}
+            <span className="badge text-bg-secondary">{active}</span>
           </button>
-          <button type="button" className="btn btn-success ms-auto" size="small" onClick={showModal}>
+          <button
+            type="button"
+            className="btn btn-success ms-auto"
+            size="small"
+            onClick={showModal}
+          >
             <i class="bi  bi-plus"></i>Thêm phòng
           </button>
         </div>
@@ -218,7 +237,6 @@ function Room({ data, setData }) {
                 <th>TT</th>
                 <th>Vị trí</th>
                 <th>Key</th>
-
                 <th>Hoạt động</th>
                 <th>Hành động</th>
               </tr>
@@ -230,7 +248,7 @@ function Room({ data, setData }) {
                 dataroom.map((item, idx) => {
                   return (
                     <tr key={idx}>
-                      <td>{idx}</td>
+                      <td>{idx + 1}</td>
 
                       <td role="button" className="text-warning">
                         {item.isActive ? (
@@ -238,7 +256,7 @@ function Room({ data, setData }) {
                             to={`/dashboard/${item._id}`}
                             style={{
                               textDecoration: "none",
-                              color: "inherit"
+                              color: "inherit",
                             }}
                           >
                             {item.name}
@@ -251,10 +269,7 @@ function Room({ data, setData }) {
                         {item.isActive ? (
                           <Link
                             to={`/dashboard/${item._id}`}
-                            style={{
-                              textDecoration: "none",
-                              color: "inherit"
-                            }}
+                            style={{ textDecoration: "none", color: "inherit" }}
                           >
                             {item.key}
                           </Link>
@@ -270,7 +285,10 @@ function Room({ data, setData }) {
                         )}
                       </td>
                       <td>
-                        <ButtonGroup variant="text" aria-label="outlined button group">
+                        <ButtonGroup
+                          variant="text"
+                          aria-label="outlined button group"
+                        >
                           <Button
                             size="small"
                             onClick={() => {
@@ -283,7 +301,7 @@ function Room({ data, setData }) {
                                 device4: item.device4?.label,
                                 device4Type: item.device4?.Chart,
                                 device5: item.device5,
-                                device6: item.device6
+                                device6: item.device6,
                               });
                             }}
                           >
@@ -294,7 +312,9 @@ function Room({ data, setData }) {
                               class="bi  bi-trash"
                               onClick={() => {
                                 if (item.isActive) {
-                                  toast.error("Không thể xóa phòng đang hoạt động");
+                                  toast.error(
+                                    "Không thể xóa phòng đang hoạt động"
+                                  );
                                   return;
                                 }
                                 handleDelete(item._id);
@@ -311,7 +331,8 @@ function Room({ data, setData }) {
                   <td colSpan={5} className="text-center">
                     <Stack sx={{ width: "100%" }} spacing={2}>
                       <Alert severity="info">
-                        Chưa có thiết bị nào trong phòng | <b>Nhấn 'Thêm thiết bị' để tạo thiết bị mới</b>
+                        Chưa có thiết bị nào trong phòng |{" "}
+                        <b>Nhấn 'Thêm thiết bị' để tạo thiết bị mới</b>
                       </Alert>
                     </Stack>
                   </td>
@@ -321,22 +342,28 @@ function Room({ data, setData }) {
           </table>
         </div>
       </Container>
-      <Modal title="Basic Modal" open={isModalOpen} onOk={form.submit} onCancel={handleCancel} width={800}>
+      <Modal
+        title="Basic Modal"
+        open={isModalOpen}
+        onOk={form.submit}
+        onCancel={handleCancel}
+        width={800}
+      >
         <Card sx={{ minWidth: 400 }}>
           <Form
             form={form}
             name="basic"
             labelCol={{
-              span: 8
+              span: 8,
             }}
             wrapperCol={{
-              span: 16
+              span: 16,
             }}
             style={{
-              maxWidth: 700
+              maxWidth: 700,
             }}
             initialValues={{
-              remember: true
+              remember: true,
             }}
             onFinish={onFinish}
             onFinishFailed={onFinishFailed}
@@ -348,8 +375,8 @@ function Room({ data, setData }) {
               rules={[
                 {
                   required: true,
-                  message: "Ten phong khong duoc de trong"
-                }
+                  message: "Tên phòng không được để trống",
+                },
               ]}
             >
               <Input />
@@ -361,8 +388,8 @@ function Room({ data, setData }) {
               rules={[
                 {
                   required: true,
-                  message: "Mo ta khong duoc de trong"
-                }
+                  message: "Mô tả không được để trống",
+                },
               ]}
             >
               <Input />
@@ -373,8 +400,8 @@ function Room({ data, setData }) {
               rules={[
                 {
                   required: true,
-                  message: "Mo ta khong duoc de trong"
-                }
+                  message: "Mô tả không được để trống",
+                },
               ]}
             >
               <Input />
@@ -385,8 +412,8 @@ function Room({ data, setData }) {
               rules={[
                 {
                   required: true,
-                  message: "Mo ta khong duoc de trong"
-                }
+                  message: "Mô tả không được để trống",
+                },
               ]}
             >
               <Input />
@@ -397,7 +424,7 @@ function Room({ data, setData }) {
                 <Form.Item label="Cảm biến 4" name="device4">
                   <Input
                     style={{
-                      width: 100
+                      width: 100,
                     }}
                   />
                 </Form.Item>
@@ -406,7 +433,7 @@ function Room({ data, setData }) {
                 <Form.Item label="Loai bieu do" name="device4Type">
                   <Select
                     style={{
-                      width: 150
+                      width: 150,
                     }}
                     defaultValue={type}
                     onChange={(value) => {
@@ -415,12 +442,12 @@ function Room({ data, setData }) {
                     options={[
                       {
                         label: "Biểu đò nhiệt độ",
-                        value: 0
+                        value: 0,
                       },
                       {
                         label: "Biểu đồ gas",
-                        value: 1
-                      }
+                        value: 1,
+                      },
                     ]}
                   />
                 </Form.Item>
@@ -432,8 +459,8 @@ function Room({ data, setData }) {
               rules={[
                 {
                   required: true,
-                  message: "Mo ta khong duoc de trong"
-                }
+                  message: "Mô tả không được để trống",
+                },
               ]}
             >
               <Input />
@@ -444,8 +471,8 @@ function Room({ data, setData }) {
               rules={[
                 {
                   required: true,
-                  message: "Mo ta khong duoc de trong"
-                }
+                  message: "Mô tả không được để trống",
+                },
               ]}
             >
               <Input />

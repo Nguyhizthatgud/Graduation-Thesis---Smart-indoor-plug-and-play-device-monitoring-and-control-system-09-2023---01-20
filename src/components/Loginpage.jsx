@@ -26,7 +26,8 @@ function Loginpage() {
     setLoading(true);
     try {
       const { username, password } = form.getFieldsValue();
-      const res = await instance.post("/loginWithPassword", { username, password });
+      const res = await instance.post("/loginWithPassword", {username, password });
+     
       if (res.status === 200) {
         toast.success("Login success", {
           position: "top-center",
@@ -74,44 +75,46 @@ function Loginpage() {
 
                     <Form
                       form={form}
-                      name="dynamic_rule"
+                      name="basic"
                       className="login-form"
                       initialValues={{
-                        remember: true
+                        remember: true,
                       }}
-                      autoComplete="off"
                     >
                       <Form.Item
                         name="username"
                         rules={[
                           {
                             required: true,
-                            message: "Please input your Username!"
-                          }
+                            message: 'Please input your Username!',
+                          },
                         ]}
                       >
                         <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
                       </Form.Item>
                       <Form.Item
-
                         name="password"
                         rules={[
                           {
                             required: true,
-                            message: "Please input your Password!"
-                          }
+                            message: 'Please input your Password!',
+                          },
                         ]}
                       >
-                        <Input.Password
+                        <Input
                           prefix={<LockOutlined className="site-form-item-icon" />}
                           type="password"
                           placeholder="Password"
+                        
                         />
                       </Form.Item>
                       <Form.Item>
                         <Form.Item name="remember" valuePropName="checked" noStyle>
                           <Checkbox>Remember me</Checkbox>
                         </Form.Item>
+                        <a className="login-form-forgot" href="">
+                          Forgot password
+                        </a>
                       </Form.Item>
 
                       <Form.Item>
@@ -132,17 +135,17 @@ function Loginpage() {
                         </Link>
                       </Form.Item>
                       <Form.Item>
-                        <Link to="/auth/register">Register now!</Link>
+                        Or <Link to="/auth/register">Register now!</Link>
                       </Form.Item>
                     </Form>
                     <Space style={{ display: "flex-row", paddingTop: "2rem" }}>
-                      <GoogleOutlined />
+                      <GoogleOutlined role="button"/>
                       <Divider type="vertical" />
-                      <FacebookOutlined />
+                      <FacebookOutlined role="button"/>
                       <Divider type="vertical" />
-                      <GithubOutlined />
+                      <GithubOutlined role="button"/>
                       <Divider type="vertical" />
-                      <AppleOutlined />
+                      <AppleOutlined role="button"/>
                     </Space>
                   </div>
 

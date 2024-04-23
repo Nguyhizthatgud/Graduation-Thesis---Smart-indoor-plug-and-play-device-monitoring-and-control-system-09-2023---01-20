@@ -585,7 +585,50 @@ pre code {
     margin-right: auto;
     margin-left: auto;
 }
-
+.facebox {
+    position: relative;
+    /* Your existing .facebox styles here... */
+  }
+  
+  .facebox:before,
+  .facebox:after,
+  .facebox > div:before,
+  .facebox > div:after {
+    content: "";
+    position: absolute;
+    width: 10%;
+    height: 10%;
+    border: 5px solid white;
+    border-radius: 30%;
+  }
+  
+  .facebox:before {
+    top: 0;
+    left: 0;
+    border-bottom: none;
+    border-right: none;
+  }
+  
+  .facebox:after {
+    top: 0;
+    right: 0;
+    border-bottom: none;
+    border-left: none;
+  }
+  
+  .facebox > div:before {
+    bottom: 0;
+    left: 0;
+    border-top: none;
+    border-right: none;
+  }
+  
+  .facebox > div:after {
+    bottom: 0;
+    right: 0;
+    border-top: none;
+    border-left: none;
+  }
 @media (min-width: 576px) {
     .container {
         max-width: 540px;
