@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { Space, Typography } from "antd";
 import { Modal } from "antd";
 import { Steps } from "antd";
-import { theme, Badge } from "antd";
+import { Badge } from "antd";
 import { Timeline } from "antd";
 import { Col, Row } from "antd";
 
-const { Text, Link } = Typography;
+const { Text } = Typography;
 function Homepage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [stepsign, setStepsign] = useState(false);
@@ -32,13 +32,10 @@ function Homepage() {
   const showModal = () => {
     setIsModalOpen(true);
   };
-  const handleOk = () => {
-    setIsModalOpen(false);
-  };
+
   const handleCancel = () => {
     setIsModalOpen(false);
   };
-  const { token } = theme.useToken();
 
   function Userusecase() {
     return (

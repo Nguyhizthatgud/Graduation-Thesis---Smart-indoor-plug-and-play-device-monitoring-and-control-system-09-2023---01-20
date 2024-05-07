@@ -2,11 +2,10 @@ import React, { useEffect, useState } from "react";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 // Grid atnd
 import { Row, Col, Switch } from "antd";
-import { Pie } from "react-chartjs-2";
-import { Intensity, PM, Temperature } from "react-environment-chart";
+import { PM, Temperature } from "react-environment-chart";
 import instance from "./services/axios";
-import { Routes, Route, useParams } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
+import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 export default function DetailsPage2() {

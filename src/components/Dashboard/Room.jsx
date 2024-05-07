@@ -6,21 +6,16 @@ import { Link } from "react-router-dom";
 import "./Room.scss";
 import {
   Card,
-  CardContent,
-  TextField,
   Modal,
   Button as Button1,
-  Checkbox,
   Row,
   Form,
   Input,
-  Space,
-  Table,
   Tag,
   Col,
   Select,
 } from "antd";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import Alert from "@mui/material/Alert";
@@ -42,7 +37,7 @@ function Room({ data, setData }) {
   // update to parent component
   useEffect(() => {
     const getAllKey = async () => {
-      websocket.current = new WebSocket("ws://152.42.182.166:8120");
+      websocket.current = new WebSocket("ws://157.245.51.60:8120");
       const res = await instance.get("/key");
       // update to parent component
       // establish websocket
@@ -193,9 +188,6 @@ function Room({ data, setData }) {
     setIsModalOpen(true);
 
     setEdit(true);
-  };
-  const handleOk = () => {
-    setIsModalOpen(false);
   };
 
   const handleCancel = () => {
