@@ -166,16 +166,16 @@ function Credential() {
           </div>
         </div>
         <Descriptions span="2" layout="vertical" bordered>
-          <Descriptions.Item label="Username">
+          <Descriptions.Item label="Tên người dùng">
             {JSON.parse(localStorage.getItem("user")).username}
           </Descriptions.Item>
           <Descriptions.Item label="Email">
             {JSON.parse(localStorage.getItem("user")).email}
           </Descriptions.Item>
-          <Descriptions.Item label="Phone Number">
+          <Descriptions.Item label="Số điện thoại">
             {JSON.parse(localStorage.getItem("user")).phoneNumber}
           </Descriptions.Item>
-          <Descriptions.Item label="Status">
+          <Descriptions.Item label="Trạng thái hoạt động">
             {JSON.parse(localStorage.getItem("user")).phoneNumber}
           </Descriptions.Item>
         </Descriptions>

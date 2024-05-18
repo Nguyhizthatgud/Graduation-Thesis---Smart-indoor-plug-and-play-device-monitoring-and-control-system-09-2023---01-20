@@ -86,7 +86,7 @@ function Room({ data, setData }) {
       };
     };
     getAllKey();
-  }, []);
+  }, [setData]);
 
   // socket onMessage
 
