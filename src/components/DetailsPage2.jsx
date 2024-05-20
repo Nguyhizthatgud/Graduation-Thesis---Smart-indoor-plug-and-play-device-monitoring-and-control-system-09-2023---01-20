@@ -5,7 +5,7 @@ import { Row, Col, Switch } from "antd";
 import { PM, Temperature } from "react-environment-chart";
 import instance from "./services/axios";
 import { useParams } from "react-router-dom";
-import { toast } from "react-toastify";
+import { message } from "antd";
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 export default function DetailsPage2() {
@@ -29,7 +29,7 @@ export default function DetailsPage2() {
         device3: null,
         device4: null,
         device5: null,
-        device6: null,
+        device6: null
       };
       const res = await instance.get(`/key/${id}`);
       setData(res.data);
@@ -49,57 +49,20 @@ export default function DetailsPage2() {
             if (data[i].id === res.data.key) {
               setStateDevice(true);
               // check prev vs current
-              if (
-                data[i].device1 !== prevStatus.device1 &&
-                prevStatus.device1 !== null &&
-                enable3.current !== true
-              ) {
-                toast.success(
-                  `Device 1 is ${data[i].device1 === 1 ? "On" : "Off"}`
-                );
+              if (data[i].device1 !== prevStatus.device1 && prevStatus.device1 !== null && enable3.current !== true) {
                 prevStatus.device1 = data[i].device1;
+                message.info(`Device 1 is now ${data[i].device1 ? "On" : "Off"}`);
               }
-              if (
-                data[i].device2 !== prevStatus.device2 &&
-                prevStatus.device2 !== null &&
-                enable4.current !== true
-              ) {
-                toast.success(
-                  `Device 2 is ${data[i].device2 === 1 ? "On" : "Off"}`
-                );
+              if (data[i].device2 !== prevStatus.device2 && prevStatus.device2 !== null && enable4.current !== true) {
                 prevStatus.device2 = data[i].device2;
               }
-              if (
-                data[i].device3 !== prevStatus.device3 &&
-                prevStatus.device3 !== null
-              ) {
-                toast.success(
-                  `${res.data?.device3} is ${
-                    data[i].device3 === 1 ? "On" : "Off"
-                  }`
-                );
+              if (data[i].device3 !== prevStatus.device3 && prevStatus.device3 !== null) {
                 prevStatus.device3 = data[i].device3;
               }
-              if (
-                data[i].device5 !== prevStatus.device5 &&
-                prevStatus.device5 !== null
-              ) {
-                toast.success(
-                  ` ${res.data?.device5} is ${
-                    data[i].device5 === 1 ? "On" : "Off"
-                  }`
-                );
+              if (data[i].device5 !== prevStatus.device5 && prevStatus.device5 !== null) {
                 prevStatus.device5 = data[i].device5;
               }
-              if (
-                data[i].device6 !== prevStatus.device6 &&
-                prevStatus.device6 !== null
-              ) {
-                toast.success(
-                  ` ${res.data?.device6}  is ${
-                    data[i].device6 === 1 ? "On" : "Off"
-                  }`
-                );
+              if (data[i].device6 !== prevStatus.device6 && prevStatus.device6 !== null) {
                 prevStatus.device6 = data[i].device6;
               }
               if (prevStatus.device1 === null) {
@@ -136,7 +99,7 @@ export default function DetailsPage2() {
       JSON.stringify({
         type: "message",
         id: data.key,
-        device1: checked ? 1 : 0,
+        device1: checked ? 1 : 0
       })
     );
     enable3.current = true;
@@ -148,7 +111,7 @@ export default function DetailsPage2() {
       JSON.stringify({
         type: "message",
         id: data.key,
-        device2: checked ? 1 : 0,
+        device2: checked ? 1 : 0
       })
     );
     enable4.current = true;
@@ -162,7 +125,7 @@ export default function DetailsPage2() {
             display: "flex",
             justifyContent: "space-between",
             alignItems: "space-between",
-            height: "100px",
+            height: "100px"
           }}
         >
           <h1>State of Device {stateDevice ? "On" : "Off"}</h1>
@@ -171,7 +134,7 @@ export default function DetailsPage2() {
         <Row
           style={{
             height: "300px",
-            width: "100%",
+            width: "100%"
           }}
         >
           <Col
@@ -181,7 +144,7 @@ export default function DetailsPage2() {
               display: "flex",
               flexDirection: "column",
               justifyContent: "center",
-              alignItems: "center",
+              alignItems: "center"
             }}
           >
             <h3>{data?.device1}</h3>
@@ -200,7 +163,7 @@ export default function DetailsPage2() {
               display: "flex",
               flexDirection: "column",
               justifyContent: "center",
-              alignItems: "center",
+              alignItems: "center"
             }}
           >
             <h3>{data?.device2}</h3>
@@ -222,7 +185,7 @@ export default function DetailsPage2() {
               display: "flex",
               flexDirection: "column",
               justifyContent: "center",
-              alignItems: "center",
+              alignItems: "center"
             }}
           >
             <h3>{data?.device3}</h3>
@@ -242,17 +205,14 @@ export default function DetailsPage2() {
               display: "flex",
               flexDirection: "column",
               justifyContent: "center",
-              alignItems: "center",
+              alignItems: "center"
             }}
           >
             <h3>
               {data?.device4.label}: {currentData?.device4} C
             </h3>
             {data?.device4?.Chart === 0 ? (
-              <Temperature
-                value={currentData?.device4 ? currentData?.device4 : 0}
-                height={350}
-              />
+              <Temperature value={currentData?.device4 ? currentData?.device4 : 0} height={350} />
             ) : (
               <PM value={currentData?.device4 ? currentData?.device4 : 0} />
             )}
@@ -264,7 +224,7 @@ export default function DetailsPage2() {
               display: "flex",
               flexDirection: "column",
               justifyContent: "center",
-              alignItems: "center",
+              alignItems: "center"
             }}
           >
             <h3>{data?.device5}</h3>
@@ -282,7 +242,7 @@ export default function DetailsPage2() {
               display: "flex",
               flexDirection: "column",
               justifyContent: "center",
-              alignItems: "center",
+              alignItems: "center"
             }}
           >
             <h3>{data?.device6}</h3>

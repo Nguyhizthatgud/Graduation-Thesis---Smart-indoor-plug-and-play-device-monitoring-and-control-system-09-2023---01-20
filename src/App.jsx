@@ -1,7 +1,6 @@
 import React, { useState, useContext } from "react";
 import { Routes, Route, Outlet, Navigate } from "react-router-dom";
 import Dashboard from "./components/Dashboard/Dashboard";
-import Controler from "./components/Dashboard/Controler";
 import Devices from "./components/Dashboard/Devices";
 import Credential from "./components/Dashboard/Credential";
 import Createroom from "../src/components/Crudtable/Createroom";
@@ -16,7 +15,7 @@ import RegisterPage from "./components/RegisterPage";
 import Faceregconite from "./components/loginPage/Faceregconite";
 import CatchImages from "./components/loginPage/CatchImages";
 import FaceIdPage from "./components/FaceId";
-import DetailsPage from "./components/DetailsPage";
+
 import DetailsPage2 from "./components/DetailsPage2";
 
 // import Register from "./components/Register";
@@ -36,7 +35,7 @@ const UnprotectedRoute = () => {
 };
 
 function App() {
-  const [data, setData] = useState([])
+  const [data, setData] = useState([]);
 
   return (
     <div className="App">
@@ -51,7 +50,17 @@ function App() {
         </Route>
         <Route path="/dashboard" element={<ProtectedRoute />}>
           <Route path="">
-            <Route path="" element={<Dashboard  data={data} setData={setData} activeState={1} children={<Room data={data} setData={setData}  />} />} />
+            <Route
+              path=""
+              element={
+                <Dashboard
+                  data={data}
+                  setData={setData}
+                  activeState={1}
+                  children={<Room data={data} setData={setData} />}
+                />
+              }
+            />
 
             <Route
               path="createroom"
@@ -64,7 +73,7 @@ function App() {
             path="devices"
             element={
               <>
-                <Dashboard activeState={2} children={<Devices />} />
+                <Dashboard activeState={2} children={<Devices data={data} setData={setData} />} />
               </>
             }
           />
@@ -72,7 +81,7 @@ function App() {
             path="credential"
             element={
               <>
-                <Dashboard activeState={3} children={<Credential />} />
+                <Dashboard activeState={3} children={<Credential data={data} setData={setData} />} />
               </>
             }
           />

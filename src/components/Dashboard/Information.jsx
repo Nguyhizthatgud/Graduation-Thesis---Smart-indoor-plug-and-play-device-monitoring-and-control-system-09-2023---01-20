@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./Information.scss";
 import axiosInstance from "../services/axios";
 
-function Information({ data, setData }) {
+function Information({ data }) {
   const [currentTime, setCurrentTime] = useState(new Date());
   useEffect(() => {
     setInterval(() => setCurrentTime(new Date()), 1000);
@@ -19,7 +19,7 @@ function Information({ data, setData }) {
             <div className="devices-box d-flex justify-content-between">
               <i class="bi bi-box p-2 ">
                 <span className="p-2 fs-md-4 fs-ms-2 text-warning-emphasis fw-bold">
-                  Thiết bị
+                  Thiết bị ({data && Array.isArray(data) ? data.length : 0})
                 </span>
               </i>
               <i className="bi bi-search p-2" role="button"></i>
@@ -28,7 +28,7 @@ function Information({ data, setData }) {
               className="fs-6 p-1"
               style={{
                 display: "flex",
-                justifyContent: "space-between",
+                justifyContent: "space-between"
               }}
             >
               <div>Số lượng Thiết bị</div>
@@ -40,9 +40,7 @@ function Information({ data, setData }) {
           <div className="devices">
             <div className="devices-box d-flex justify-content-between">
               <i class="bi bi-geo p-2 ">
-                <span className="p-2 text-warning-emphasis fw-bold">
-                  Vị trí
-                </span>
+                <span className="p-2 text-warning-emphasis fw-bold">Vị trí</span>
               </i>
               <i className="bi bi-search p-2" role="button"></i>
             </div>
@@ -50,7 +48,7 @@ function Information({ data, setData }) {
               className="fs-6 p-1"
               style={{
                 display: "flex",
-                justifyContent: "space-between",
+                justifyContent: "space-between"
               }}
             >
               <div>Vị trí hoạt động</div>
@@ -62,9 +60,7 @@ function Information({ data, setData }) {
           <div className="devices">
             <div className="devices-box d-flex justify-content-between">
               <i class="bi bi-person-badge p-2 ">
-                <span className="p-2 fw-bold text-warning-emphasis">
-                  Người dùng
-                </span>
+                <span className="p-2 fw-bold text-warning-emphasis">Người dùng</span>
               </i>
               <i className="bi bi-search p-2" role="button"></i>
             </div>
@@ -72,7 +68,7 @@ function Information({ data, setData }) {
               className="fs-6 p-1"
               style={{
                 display: "flex",
-                justifyContent: "space-between",
+                justifyContent: "space-between"
               }}
             >
               <div>Tên :</div>
@@ -82,7 +78,7 @@ function Information({ data, setData }) {
               className="fs-6 p-1"
               style={{
                 display: "flex",
-                justifyContent: "space-between",
+                justifyContent: "space-between"
               }}
             >
               <div>Email:</div>
@@ -92,7 +88,7 @@ function Information({ data, setData }) {
               className="fs-6 p-1"
               style={{
                 display: "flex",
-                justifyContent: "space-between",
+                justifyContent: "space-between"
               }}
             >
               <div>So dien thoai :</div>
@@ -105,9 +101,7 @@ function Information({ data, setData }) {
         <p className="flex-grow-1 position-absolute bottom-0 start-0 mx-3 fw-semibold">
           {currentTime.toLocaleDateString()}
         </p>
-        <p className="position-absolute bottom-0 end-0 mx-3 fw-semibold">
-          {currentTime.toLocaleTimeString()}
-        </p>
+        <p className="position-absolute bottom-0 end-0 mx-3 fw-semibold">{currentTime.toLocaleTimeString()}</p>
       </div>
     </div>
   );

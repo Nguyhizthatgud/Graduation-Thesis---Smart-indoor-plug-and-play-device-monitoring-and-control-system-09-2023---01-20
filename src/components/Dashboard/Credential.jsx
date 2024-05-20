@@ -15,7 +15,7 @@ const getBase64 = (img, callback) => {
   reader.addEventListener("load", () => callback(reader.result));
   reader.readAsDataURL(img);
 };
-function Credential() {
+function Credential(data, setData) {
   const [loading, setLoading] = useState(false);
 
   const beforeUpload = (file) => {
@@ -42,7 +42,7 @@ function Credential() {
       {loading ? <LoadingOutlined /> : <PlusOutlined />}
       <div
         style={{
-          marginTop: 8,
+          marginTop: 8
         }}
       >
         Upload
@@ -74,7 +74,7 @@ function Credential() {
         setLoading(false);
         setImageUrl(url);
         form.setFieldsValue({
-          picture: url,
+          picture: url
         });
       });
     }
@@ -103,7 +103,7 @@ function Credential() {
     const user = await instance.put(`/editUser`, {
       username: values.username,
       email: values.email,
-      phoneNumber: values.phoneNumber,
+      phoneNumber: values.phoneNumber
     });
     const getUsr = JSON.parse(localStorage.getItem("user"));
     getUsr.username = user.data.user.username;
@@ -117,13 +117,13 @@ function Credential() {
     try {
       const user = await instance.post(`/editPassword`, {
         prevPassword: values.prevPassword,
-        password: values.password,
+        password: values.password
       });
       toast.success("Change password success", {
         autoClose: 5000,
         position: "top-center",
         hideProgressBar: false,
-        closeOnClick: true,
+        closeOnClick: true
       });
       setIsModalOpen1(false);
     } catch (error) {
@@ -131,7 +131,7 @@ function Credential() {
         autoClose: 5000,
         position: "top-center",
         hideProgressBar: false,
-        closeOnClick: true,
+        closeOnClick: true
       });
     }
   };
@@ -141,14 +141,12 @@ function Credential() {
         <div
           style={{
             display: "flex",
-            justifyContent: "space-between",
+            justifyContent: "space-between"
           }}
         >
           <div className="pt-5">
             <Divider orientation="left" orientationMargin="0">
-              <span className="text-uppercase fw-bold fs-4">
-                Thông tin người dùng
-              </span>
+              <span className="text-uppercase fw-bold fs-4">Thông tin người dùng</span>
             </Divider>
           </div>
 
@@ -169,9 +167,7 @@ function Credential() {
           <Descriptions.Item label="Tên người dùng">
             {JSON.parse(localStorage.getItem("user")).username}
           </Descriptions.Item>
-          <Descriptions.Item label="Email">
-            {JSON.parse(localStorage.getItem("user")).email}
-          </Descriptions.Item>
+          <Descriptions.Item label="Email">{JSON.parse(localStorage.getItem("user")).email}</Descriptions.Item>
           <Descriptions.Item label="Số điện thoại">
             {JSON.parse(localStorage.getItem("user")).phoneNumber}
           </Descriptions.Item>
@@ -180,12 +176,7 @@ function Credential() {
           </Descriptions.Item>
         </Descriptions>
       </Container>
-      <Modal
-        title="User Information"
-        open={isModalOpen}
-        onOk={form.submit}
-        onCancel={handleCancel}
-      >
+      <Modal title="User Information" open={isModalOpen} onOk={form.submit} onCancel={handleCancel}>
         <Form
           form={form}
           name="basic"
@@ -195,7 +186,7 @@ function Credential() {
           initialValues={{
             username: JSON.parse(localStorage.getItem("user")).username,
             email: JSON.parse(localStorage.getItem("user")).email,
-            phoneNumber: JSON.parse(localStorage.getItem("user")).phoneNumber,
+            phoneNumber: JSON.parse(localStorage.getItem("user")).phoneNumber
           }}
           onFinish={handleOnEdit}
           autoComplete="off"
@@ -206,8 +197,8 @@ function Credential() {
             rules={[
               {
                 required: true,
-                message: "Please Input your username!",
-              },
+                message: "Please Input your username!"
+              }
             ]}
           >
             <Input />
@@ -218,8 +209,8 @@ function Credential() {
             rules={[
               {
                 required: true,
-                message: "Please Input your email!",
-              },
+                message: "Please Input your email!"
+              }
             ]}
           >
             <Input />
@@ -230,8 +221,8 @@ function Credential() {
             rules={[
               {
                 required: true,
-                message: "Please Input your Phone Number!",
-              },
+                message: "Please Input your Phone Number!"
+              }
             ]}
           >
             <Input />
@@ -239,12 +230,7 @@ function Credential() {
         </Form>
       </Modal>
       {/* edit password modal */}
-      <Modal
-        title="Change Password"
-        open={isModalOpen1}
-        onOk={form1.submit}
-        onCancel={handleCancel1}
-      >
+      <Modal title="Change Password" open={isModalOpen1} onOk={form1.submit} onCancel={handleCancel1}>
         <Form
           form={form1}
           name="basic"
@@ -260,8 +246,8 @@ function Credential() {
             rules={[
               {
                 required: true,
-                message: "Please Input your old password!",
-              },
+                message: "Please Input your old password!"
+              }
             ]}
           >
             <Input.Password />
@@ -272,8 +258,8 @@ function Credential() {
             rules={[
               {
                 required: true,
-                message: "Please Input your new password!",
-              },
+                message: "Please Input your new password!"
+              }
             ]}
           >
             <Input.Password />
@@ -284,8 +270,8 @@ function Credential() {
             rules={[
               {
                 required: true,
-                message: "Please Input your confirm password!",
-              },
+                message: "Please Input your confirm password!"
+              }
             ]}
           >
             <Input.Password />

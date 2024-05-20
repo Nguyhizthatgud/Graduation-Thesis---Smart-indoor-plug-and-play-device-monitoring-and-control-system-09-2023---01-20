@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Typed from "typed.js";
 import { Link } from "react-router-dom";
 
@@ -11,7 +11,7 @@ function Header() {
       typeSpeed: 50,
       backSpeed: 50,
       loop: true,
-      smartBackspace: true,
+      smartBackspace: true
     });
 
     return () => {
@@ -31,10 +31,7 @@ function Header() {
   return (
     <>
       {/* Navigation*/}
-      <nav
-        className="navbar navbar-expand-lg navbar-dark fixed-top"
-        id="mainNav"
-      >
+      <nav className="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
         <nav
           className={
             navbar
@@ -44,12 +41,7 @@ function Header() {
         >
           <div className="container">
             <a className="navbar-brand" href="#page-top">
-              <img
-                style={{ height: "3.1rem" }}
-                src="assets/img/ute_bdrp.png"
-                className="img1"
-                alt=" ..."
-              />
+              <img style={{ height: "3.1rem" }} src="assets/img/ute_bdrp.png" className="img1" alt=" ..." />
             </a>
             <button
               className="navbar-toggler"
@@ -85,10 +77,7 @@ function Header() {
                     Creator
                   </a>
                 </li>
-                <Link
-                  to="/dashboard "
-                  className="link-underline-light link-underline-opacity-0"
-                >
+                <Link to="/dashboard " className="link-underline-light link-underline-opacity-0">
                   <li className="nav-item">
                     <a className="nav-link">Start Free</a>
                   </li>
@@ -100,10 +89,7 @@ function Header() {
       </nav>
 
       {/* Masthead*/}
-      <header
-        className="masthead"
-        style={{ backgroundImage: "url(assets/img/bg3.png)" }}
-      >
+      <header className="masthead" style={{ backgroundImage: "url(assets/img/bg3.png)" }}>
         <div className="container">
           <div className="masthead-subheading">Đồ án tốt nghiệp</div>
           <div className="masthead-heading text-uppercase fs-1 ">
@@ -111,18 +97,13 @@ function Header() {
             <span class="first-subheading text-warning"> </span>
             <span className="text-warning fs-1" ref={el} />
             <br />
-            <span className="masthead-heading text-uppercase fs-1">
-              thiết bị trong nhà thông minh
-            </span>
+            <span className="masthead-heading text-uppercase fs-1">thiết bị trong nhà thông minh</span>
           </div>
           <div>
             <img src="" alt="" />
           </div>
           <div>
-            <a
-              className="btn  btn-secondary btn-lg text-uppercase"
-              href="#services"
-            >
+            <a className="btn  btn-secondary btn-lg text-uppercase" href="#services">
               <i className="fa-solid fa-arrow-down" />
               Thông tin thêm
             </a>
