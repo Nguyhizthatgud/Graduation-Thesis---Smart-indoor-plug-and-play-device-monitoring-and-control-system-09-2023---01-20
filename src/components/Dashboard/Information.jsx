@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import "./Information.scss";
-import axiosInstance from "../services/axios";
+
 
 function Information({ data }) {
   const [currentTime, setCurrentTime] = useState(new Date());
   useEffect(() => {
     setInterval(() => setCurrentTime(new Date()), 1000);
+    
   }, []);
 
   return (
@@ -18,9 +19,7 @@ function Information({ data }) {
           <div className="devices">
             <div className="devices-box d-flex justify-content-between">
               <i class="bi bi-box p-2 ">
-                <span className="p-2 fs-md-4 fs-ms-2 text-warning-emphasis fw-bold">
-                  Thiết bị ({data && Array.isArray(data) ? data.length : 0})
-                </span>
+                <span className="p-2 fs-md-4 fs-ms-2 text-warning-emphasis fw-bold">Thiết bị</span>
               </i>
               <i className="bi bi-search p-2" role="button"></i>
             </div>
@@ -32,7 +31,7 @@ function Information({ data }) {
               }}
             >
               <div>Số lượng Thiết bị</div>
-              <div>{data?.length}</div>
+              <div>{data && Array.isArray(data) ? data.length : 0}</div>
             </div>
           </div>
         </div>
@@ -52,7 +51,7 @@ function Information({ data }) {
               }}
             >
               <div>Vị trí hoạt động</div>
-              <div>{data?.length * 6}</div>
+              <div>{data && Array.isArray(data) ? data.length * 6 : 0}</div>
             </div>
           </div>
         </div>

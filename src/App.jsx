@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Routes, Route, Outlet, Navigate } from "react-router-dom";
 import Dashboard from "./components/Dashboard/Dashboard";
 import Devices from "./components/Dashboard/Devices";
@@ -12,10 +12,8 @@ import Portfolio from "./components/portfolio/Portfolio";
 import Loginpage from "./components/Loginpage";
 import { UserContext } from "./context/ContextProvider";
 import RegisterPage from "./components/RegisterPage";
-import Faceregconite from "./components/loginPage/Faceregconite";
-import CatchImages from "./components/loginPage/CatchImages";
-import FaceIdPage from "./components/FaceId";
 
+import FaceIdPage from "./components/FaceId";
 import DetailsPage2 from "./components/DetailsPage2";
 
 // import Register from "./components/Register";
@@ -37,6 +35,9 @@ const UnprotectedRoute = () => {
 function App() {
   const [data, setData] = useState([]);
 
+  useEffect(() => {
+    console.log(data);
+  }, [data]); // This effect runs whenever `data` changes
   return (
     <div className="App">
       {/* <Faceregconite /> */}

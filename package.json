@@ -17,6 +17,7 @@
     "@testing-library/user-event": "^13.5.0",
     "antd": "^5.12.2",
     "antd-img-crop": "^4.18.0",
+    "autoprefixer": "^10.4.19",
     "axios": "^1.6.3",
     "bootstrap": "^5.3.2",
     "bootstrap-icons": "^1.11.1",
@@ -27,6 +28,7 @@
     "face-api.js": "^0.22.2",
     "framer-motion": "^11.0.18",
     "json-server": "^0.17.4",
+    "postcss": "^8.4.38",
     "react": "^18.2.0",
     "react-bootstrap": "^2.9.1",
     "react-chartjs-2": "^5.2.0",
@@ -41,6 +43,7 @@
     "sass": "^1.69.5",
     "styled-components": "^6.1.1",
     "tailwind-merge": "^2.2.2",
+    "tailwindcss": "^3.4.3",
     "typed.js": "^2.1.0",
     "web-vitals": "^2.1.4"
   },

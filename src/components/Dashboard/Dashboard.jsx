@@ -9,7 +9,7 @@ function Dashboard({ activeState, children, data, setData }) {
       <div className="row gy-auto">
         <Bar activeState={activeState} />
         <Information data={data} setData={setData} />
-
+        
         {children}
       </div>
     </div>

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Container } from "react-bootstrap";
-import Button from "react-bootstrap/Button";
+import { Button, Badge } from "antd";
 import { Link } from "react-router-dom";
 import { Descriptions, Modal } from "antd";
 import { PlusOutlined, LoadingOutlined } from "@ant-design/icons";
@@ -15,9 +15,9 @@ const getBase64 = (img, callback) => {
   reader.addEventListener("load", () => callback(reader.result));
   reader.readAsDataURL(img);
 };
-function Credential(data, setData) {
+function Credential({ data, setData }) {
   const [loading, setLoading] = useState(false);
-
+  const [dataroom, setDataroom] = useState({});
   const beforeUpload = (file) => {
     const isJpgOrPng = file.type === "image/jpeg" || file.type === "image/png";
     if (!isJpgOrPng) {
@@ -141,26 +141,13 @@ function Credential(data, setData) {
         <div
           style={{
             display: "flex",
-            justifyContent: "space-between"
+
           }}
         >
           <div className="pt-5">
             <Divider orientation="left" orientationMargin="0">
               <span className="text-uppercase fw-bold fs-4">Thông tin người dùng</span>
             </Divider>
-          </div>
-
-          <div>
-            <div className="pt-5">
-              <Button type="primary" onClick={showModal}>
-                Edit
-              </Button>
-            </div>
-            <div className="pt-5">
-              <Button type="primary" onClick={showModal1}>
-                Password
-              </Button>
-            </div>
           </div>
         </div>
         <Descriptions span="2" layout="vertical" bordered>
@@ -172,9 +159,23 @@ function Credential(data, setData) {
             {JSON.parse(localStorage.getItem("user")).phoneNumber}
           </Descriptions.Item>
           <Descriptions.Item label="Trạng thái hoạt động">
-            {JSON.parse(localStorage.getItem("user")).phoneNumber}
+            {data.length > 0 ? (
+              <Badge status="Processing" text="Đang hoạt động" />
+            ) : (<Badge status="default" text="Không hoạt động" />)
+            }
           </Descriptions.Item>
         </Descriptions>
+
+        <div className="pt-5 flex flex-row justify-end">
+          <Button type="primary" onClick={showModal} ghost shape="round">
+            Edit
+          </Button>
+          <Divider type="vertical" className="mx-1" />
+          <Button type="primary" onClick={showModal1} ghost shape="round">
+            Password
+          </Button>
+        </div>
+
       </Container>
       <Modal title="User Information" open={isModalOpen} onOk={form.submit} onCancel={handleCancel}>
         <Form
@@ -278,6 +279,7 @@ function Credential(data, setData) {
           </Form.Item>
         </Form>
       </Modal>
+
     </>
   );
 }
