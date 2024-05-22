@@ -27,7 +27,7 @@ function Room({ data, setData }) {
   // update to parent component
   useEffect(() => {
     const getAllKey = async () => {
-      ";m ";
+
       websocket.current = new WebSocket("ws://157.245.51.60:8120");
       const res = await instance.get("/key");
       // update to parent component
@@ -195,10 +195,10 @@ function Room({ data, setData }) {
         <div className="table-devices pt-4">
           <table className="table table-hover table-sm ">
             <thead>
-              <tr className="table-warning">
+              <tr className="table-warning flex flex-center">
                 <th>TT</th>
                 <th>Vị trí</th>
-                <th>Key</th>
+                <th>Mã kết nối</th>
                 <th>Hoạt động</th>
                 <th>Hành động</th>
               </tr>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 // Grid atnd
-import { Row, Col, Switch } from "antd";
+import { Row, Col, Switch, Badge } from "antd";
 import { PM, Temperature } from "react-environment-chart";
 import instance from "./services/axios";
 import { useParams } from "react-router-dom";
@@ -92,7 +92,7 @@ export default function DetailsPage2() {
       };
     };
     getDetailKey();
-  }, []);
+  }, [id]);
   const onChangeDevice1 = (checked) => {
     // wait 1 second
     websocket.current.send(
@@ -128,8 +128,14 @@ export default function DetailsPage2() {
             height: "100px"
           }}
         >
-          <h1>State of Device {stateDevice ? "On" : "Off"}</h1>
-          <h1>Device Id: {data?.key}</h1>
+          <div className="badge-button mt-3 d-flex ">
+            <button className="btn btn-outline-secondary btn-sm me-3">
+              Trạng thái hoạt động:<span className="badge text-bg-secondary">{stateDevice ? (<Badge status="Processing" text="Đang hoạt động" />) : (<Badge status="default" text="Không hoạt động" />)}</span>
+            </button>
+            <button className="btn btn-outline-secondary  btn-sm">Mã liên kết<span className="badge text-bg-secondary">{data?.key}</span>
+            </button>
+
+          </div>
         </div>
         <Row
           style={{
