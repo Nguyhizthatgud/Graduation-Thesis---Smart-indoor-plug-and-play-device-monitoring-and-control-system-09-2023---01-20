@@ -4,17 +4,14 @@ import Dashboard from "./components/Dashboard/Dashboard";
 import Devices from "./components/Dashboard/Devices";
 import Credential from "./components/Dashboard/Credential";
 import Createroom from "../src/components/Crudtable/Createroom";
-import Updateroom from "../src/components/Crudtable/Updateroom";
-import Bar from "./components/Dashboard/Bar";
-import Information from "./components/Dashboard/Information";
 import Room from "./components/Dashboard/Room";
 import Portfolio from "./components/portfolio/Portfolio";
 import Loginpage from "./components/Loginpage";
 import { UserContext } from "./context/ContextProvider";
 import RegisterPage from "./components/RegisterPage";
-
 import FaceIdPage from "./components/FaceId";
 import DetailsPage2 from "./components/DetailsPage2";
+
 
 // import Register from "./components/Register";
 const ProtectedRoute = () => {
@@ -33,11 +30,13 @@ const UnprotectedRoute = () => {
 };
 
 function App() {
-  const [data, setData] = useState([]);
+  const [Dataroom, setDataroom] = useState(null);
+  const [data, setData] = useState([]); // Add this line to define 'setDataroom'
 
   useEffect(() => {
     console.log(data);
   }, [data]); // This effect runs whenever `data` changes
+  console.log(Dataroom);
   return (
     <div className="App">
       {/* <Faceregconite /> */}
@@ -58,7 +57,8 @@ function App() {
                   data={data}
                   setData={setData}
                   activeState={1}
-                  children={<Room data={data} setData={setData} />}
+                  setDataroom={setDataroom}
+                  children={<Room data={data} setData={setData} setDataroom={setDataroom} />}
                 />
               }
             />
@@ -68,7 +68,7 @@ function App() {
               activeState={0}
               element={<Dashboard activeState={1} children={<Createroom />} />}
             />
-            <Route path=":id" activeState={0} element={<Dashboard activeState={1} children={<DetailsPage2 />} />} />
+            <Route path=":id" activeState={0} element={<Dashboard activeState={1} children={<DetailsPage2 Dataroom={Dataroom} />} />} />
           </Route>
           <Route
             path="devices"

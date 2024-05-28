@@ -14,7 +14,7 @@ import { Divider } from "antd";
 
 import instance from "../services/axios";
 
-function Room({ data, setData }) {
+function Room({ data, setData, setDataroom }) {
   const [dataroom, dataroomchange] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [getAgain, setGetAgian] = useState(false);
@@ -25,6 +25,7 @@ function Room({ data, setData }) {
   const [type, setType] = useState(0);
   const websocket = React.useRef(null);
   // update to parent component
+
   useEffect(() => {
     const getAllKey = async () => {
 
@@ -78,9 +79,8 @@ function Room({ data, setData }) {
     };
     getAllKey();
   }, [setData]);
-
+  setDataroom(dataroom);
   // socket onMessage
-
   const onFinish = async (values) => {
     let res;
     try {
@@ -175,7 +175,7 @@ function Room({ data, setData }) {
 
   return (
     <>
-      <Container className="col bg-body-tertiary">
+      <Container className="col Room bg-body-tertiary">
         <div className="head-bar pt-5 d-flex justify-content-between">
           <Divider orientation="left" orientationMargin="0">
             <span className="text-uppercase fw-bold fs-4">Vị trí</span>

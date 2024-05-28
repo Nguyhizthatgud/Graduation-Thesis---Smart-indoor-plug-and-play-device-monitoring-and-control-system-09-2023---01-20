@@ -42,31 +42,9 @@ const updateTreeData = (list, key, children) =>
   });
 function Devices({ data }) {
   const [treeData, setTreeData] = useState(initTreeData);
-  const onLoadData = ({ key, children }) => {
-    new Promise((resolve) => {
-      if (children) {
-        resolve();
-        return;
-      }
-      setTimeout(() => {
-        setTreeData((origin) =>
-          updateTreeData(origin, key, [
-            {
-              title: "Child Node",
-              key: `${key}-0`
-            },
-            {
-              title: "Child Node",
-              key: `${key}-1`
-            }
-          ])
-        );
-        resolve();
-      }, 1000);
-    });
-  };
+
   return (
-    <Container className="col">
+    <Container className="devices col">
       <div className="head-bar pt-5 d-flex justify-content-between">
         <Divider orientation="left" orientationMargin="0">
           <span className="text-uppercase fw-bold fs-4">Danh sách thiết bị xoá</span>

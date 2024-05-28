@@ -15,8 +15,8 @@ function Bar({ activeState }) {
   };
 
   return (
-    <div className="bg-body-tertiary col-lg-auto col-sm-1 d-flex flex-column justify-content-between  min-vh-100 border border-right p-0">
-      <Container className="">
+    <div className="bg-body-tertiary col-lg-auto col-sm-1 d-flex flex-column justify-content-between min-vh-100 border border-right px-0 pe-md-1">
+      <div className="container-fluid">
         <Link to="/">
           <Navbar.Brand className="d-flex justify-content-center mt-3">
             <Tooltip title="Logo" placement="right">
@@ -36,9 +36,8 @@ function Bar({ activeState }) {
             <Tooltip title="Vị trí" placement="right">
               <Link
                 to={"/dashboard"}
-                className={`nav-link d-flex justify-content-center ${
-                  activeState === 1 ? "active" : null
-                }`}
+                className={`nav-link d-flex justify-content-center ${activeState === 1 ? "active" : null
+                  }`}
                 aria-current="page"
                 role="tab"
                 aria-selected="true"
@@ -51,9 +50,8 @@ function Bar({ activeState }) {
             <Tooltip title="Danh sách thiết bị" placement="right">
               <Link
                 to={"/dashboard/devices"}
-                className={`nav-link d-flex justify-content-center ${
-                  activeState === 2 ? "active" : null
-                }`}
+                className={`nav-link d-flex justify-content-center ${activeState === 2 ? "active" : null
+                  }`}
                 aria-current="page"
                 role="tab"
                 aria-selected="false"
@@ -66,9 +64,8 @@ function Bar({ activeState }) {
             <Tooltip title="Thông tin xác thực" placement="right">
               <Link
                 to={"/dashboard/credential"}
-                className={`nav-link d-flex justify-content-center ${
-                  activeState === 3 ? "active" : null
-                }`}
+                className={`nav-link d-flex justify-content-center ${activeState === 3 ? "active" : null
+                  }`}
                 aria-current="page"
                 role="tab"
                 aria-selected="false"
@@ -78,7 +75,7 @@ function Bar({ activeState }) {
             </Tooltip>
           </li>
         </ul>
-      </Container>
+      </div>
       <div
         className="dropdown-center open d-flex flex-shrink-0 mb-3 mx-auto"
         data-bs-theme="dark"
