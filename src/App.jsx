@@ -12,7 +12,6 @@ import RegisterPage from "./components/RegisterPage";
 import FaceIdPage from "./components/FaceId";
 import DetailsPage2 from "./components/DetailsPage2";
 
-
 // import Register from "./components/Register";
 const ProtectedRoute = () => {
   const userContext = useContext(UserContext);
@@ -58,7 +57,13 @@ function App() {
                   setData={setData}
                   activeState={1}
                   setDataroom={setDataroom}
-                  children={<Room data={data} setData={setData} setDataroom={setDataroom} />}
+                  children={
+                    <Room
+                      data={data}
+                      setData={setData}
+                      setDataroom={setDataroom}
+                    />
+                  }
                 />
               }
             />
@@ -68,13 +73,28 @@ function App() {
               activeState={0}
               element={<Dashboard activeState={1} children={<Createroom />} />}
             />
-            <Route path=":id" activeState={0} element={<Dashboard activeState={1} children={<DetailsPage2 Dataroom={Dataroom} />} />} />
+            <Route
+              path=":id"
+              activeState={0}
+              element={
+                <Dashboard
+                  activeState={1}
+                  children={
+                    <DetailsPage2
+                      Dataroom={Dataroom}
+                      data={data}
+                      setData={setData}
+                    />
+                  }
+                />
+              }
+            />
           </Route>
           <Route
             path="devices"
             element={
               <>
-                <Dashboard activeState={2} children={<Devices data={data} setData={setData} />} />
+                <Dashboard activeState={2} children={<Devices data={data} />} />
               </>
             }
           />
@@ -82,7 +102,10 @@ function App() {
             path="credential"
             element={
               <>
-                <Dashboard activeState={3} children={<Credential data={data} setData={setData} />} />
+                <Dashboard
+                  activeState={3}
+                  children={<Credential data={data} />}
+                />
               </>
             }
           />
