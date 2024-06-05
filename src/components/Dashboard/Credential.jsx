@@ -31,7 +31,6 @@ function Credential({ data, setData }) {
   };
   const [form] = Form.useForm();
   const [form1] = Form.useForm();
-
   const [fileList, setFileList] = useState([{}]);
   const [imageUrl, setImageUrl] = useState();
   const onChange = ({ fileList: newFileList }) => {

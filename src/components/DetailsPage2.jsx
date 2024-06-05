@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import React, { useEffect, useState, useRef } from "react";
 
 import { Row, Col, Switch, Badge, Divider, Space } from "antd";
 import { PM, Temperature } from "react-environment-chart";
@@ -8,7 +7,6 @@ import { useParams } from "react-router-dom";
 import { message, Layout, Card } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import Box from "@mui/material/Box";
-ChartJS.register(ArcElement, Tooltip, Legend);
 
 export default function DetailsPage2({ Dataroom }) {
   let { id } = useParams();
@@ -17,10 +15,10 @@ export default function DetailsPage2({ Dataroom }) {
   const [stateDevice, setStateDevice] = useState(false);
   const [enable, setEnable] = useState(false);
   const [enable2, setEnable2] = useState(false);
+  const chartRef = useRef(null);
   const enable3 = React.useRef(false);
   const enable4 = React.useRef(false);
   const websocket = React.useRef(null);
-
   useEffect(() => {
     const getDetailKey = async () => {
       websocket.current = new WebSocket("ws://157.245.51.60:8120");
@@ -146,8 +144,8 @@ export default function DetailsPage2({ Dataroom }) {
     };
     getDetailKey();
   }, [id]);
-  //a function that Check if the device status has changed and send a ant design success message if it has "1" is on or off
 
+  console.log(currentData);
   function checkDeviceStatusAndNotify(
     deviceStatus,
     prevDeviceStatus,
@@ -196,16 +194,6 @@ export default function DetailsPage2({ Dataroom }) {
 
   return (
     <Layout
-      // style={{
-      //   height: "100vh",
-      //   backgroundColor: "rgba(248, 249, 250, 0.5)",
-      //   backgroundImage: `
-      //   radial-gradient(rgb(0 0 0 / 20%) 1px, transparent 1px),
-      //   radial-gradient(rgb(0 0 0 / 20%) 1px, transparent 1px)`,
-      //   backgroundSize: "20px 20px",
-      //   backgroundPosition: "0 0, 10px 10px",
-      //   backdropFilter: "blur(100px)",
-      // }}
       style={{
         height: "100vh",
         backgroundImage:
@@ -258,7 +246,14 @@ export default function DetailsPage2({ Dataroom }) {
           >
             <UserOutlined
               type="user"
-              style={{ position: "absolute", top: 0 }}
+              style={{
+                position: "absolute",
+                top: "0",
+                paddingTop: "20px",
+                left: "0",
+                fontSize: "30px",
+                color: "black",
+              }}
             />{" "}
             <Col
               span={8}
@@ -309,7 +304,14 @@ export default function DetailsPage2({ Dataroom }) {
                 alignItems: "center",
               }}
             >
-              <Card>
+              <Card
+                bordered={true}
+                hoverable
+                size="small"
+                style={{
+                  width: 300,
+                }}
+              >
                 <h3>{data?.device2.label}</h3>
                 <Switch
                   value={currentData?.device2 === 1 ? true : false}
@@ -322,30 +324,64 @@ export default function DetailsPage2({ Dataroom }) {
           </Row>
         </Space>
       </div>
-      <div>
-        khối cảm biến
+      <Space
+        className="sensorbase"
+        hoverable
+        style={{ padding: "1.25rem 1.25rem 0 0" }}
+      >
         <Row>
-          <Col
-            span={8}
-            style={{
-              // center all element
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <h3>
-              {data?.device4.label}: {currentData?.device4} C
-            </h3>
-            {data?.device4?.Chart === 0 ? (
+          <Card title="khối cảm biến">
+            <Card.Grid className="content" hoverable>
+              <h3>
+                {data?.device3.label}: {currentData?.device3} C
+              </h3>
               <Temperature
-                value={currentData?.device4 ? currentData?.device4 : 0}
-                height={330}
+                value={currentData?.device3 ? currentData?.device3 : 0}
+                height={300}
+                width={300}
               />
-            ) : (
-              <PM value={currentData?.device4 ? currentData?.device4 : 0} />
-            )}
+            </Card.Grid>
+            <Card.Grid className="content" hoverable>
+              <h3>{data?.device5}</h3>
+              <Switch
+                value={currentData?.device5 === 1 ? true : false}
+                checkedChildren="On"
+                unCheckedChildren="Off"
+                disabled
+              />
+            </Card.Grid>
+            <Card.Grid className="content" hoverable></Card.Grid>
+          </Card>
+          <Col
+            span={8}
+            style={{
+              // center all element
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Card
+              bordered={true}
+              hoverable
+              size="small"
+              style={{
+                width: 300,
+              }}
+            >
+              <h3>
+                {data?.device4.label}: {currentData?.device4} C
+              </h3>
+              {data?.device4?.Chart === 0 ? (
+                <Temperature
+                  value={currentData?.device4 ? currentData?.device4 : 0}
+                  height={330}
+                />
+              ) : (
+                <PM value={currentData?.device4 ? currentData?.device4 : 0} />
+              )}
+            </Card>
           </Col>
           <Col
             span={8}
@@ -357,13 +393,15 @@ export default function DetailsPage2({ Dataroom }) {
               alignItems: "center",
             }}
           >
-            <h3>{data?.device5}</h3>
-            <Switch
-              value={currentData?.device5 === 1 ? true : false}
-              checkedChildren="On"
-              unCheckedChildren="Off"
-              disabled
-            />
+            <Card>
+              <h3>{data?.device5}</h3>
+              <Switch
+                value={currentData?.device5 === 1 ? true : false}
+                checkedChildren="On"
+                unCheckedChildren="Off"
+                disabled
+              />
+            </Card>
           </Col>
           <Col
             span={8}
@@ -375,18 +413,20 @@ export default function DetailsPage2({ Dataroom }) {
               alignItems: "center",
             }}
           >
-            <h3>{data?.device6}</h3>
-            <Switch
-              value={currentData?.device6 === 1 ? true : false}
-              checkedChildren="On"
-              unCheckedChildren="Off"
-              disabled
-            />
+            <Card>
+              <h3>{data?.device6}</h3>
+              <Switch
+                value={currentData?.device6 === 1 ? true : false}
+                checkedChildren="On"
+                unCheckedChildren="Off"
+                disabled
+              />
+            </Card>
           </Col>
         </Row>
-      </div>
-      <div>Khối thiết bị</div>
-      <div>Khối ví trí</div>
+      </Space>
+      <Space></Space>
+      <Space>Khối ví trí</Space>
     </Layout>
   );
 }

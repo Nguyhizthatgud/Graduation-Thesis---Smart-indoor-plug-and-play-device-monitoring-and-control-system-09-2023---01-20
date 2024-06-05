@@ -29,13 +29,9 @@ const UnprotectedRoute = () => {
 };
 
 function App() {
-  const [Dataroom, setDataroom] = useState(null);
+  const [Dataroom, setDataroom] = useState([]);
   const [data, setData] = useState([]); // Add this line to define 'setDataroom'
 
-  useEffect(() => {
-    console.log(data);
-  }, [data]); // This effect runs whenever `data` changes
-  console.log(Dataroom);
   return (
     <div className="App">
       {/* <Faceregconite /> */}
