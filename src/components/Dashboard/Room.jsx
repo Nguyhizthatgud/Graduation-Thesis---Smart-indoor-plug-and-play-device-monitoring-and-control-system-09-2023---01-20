@@ -35,6 +35,8 @@ function Room({ data, setData, setDataroom }) {
   const [type, setType] = useState(0);
   const websocket = React.useRef(null);
   // update to parent component
+  // creat a paginate for table
+  // get all key
 
   useEffect(() => {
     const getAllKey = async () => {
@@ -229,7 +231,7 @@ function Room({ data, setData, setDataroom }) {
             <i class="bi  bi-plus"></i>Thêm phòng
           </button>
         </div>
-        <div className="table-devices pt-4">
+        <Card className="table-devices mt-4">
           <table className="table table-hover table-sm ">
             <thead>
               <tr className="table-warning flex flex-center">
@@ -339,7 +341,7 @@ function Room({ data, setData, setDataroom }) {
               )}
             </tbody>
           </table>
-        </div>
+        </Card>
       </div>
       <Modal
         title="Basic Modal"
@@ -417,7 +419,7 @@ function Room({ data, setData, setDataroom }) {
             >
               <Input />
             </Form.Item>
-            {/* // Col */}
+
             <Row>
               <Col span={12}>
                 <Form.Item label="Cảm biến 4" name="device4">

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Container } from "react-bootstrap";
 import { Breadcrumb } from "antd";
 import { Divider, Button } from "antd";
@@ -8,6 +8,9 @@ import { Table } from "antd";
 import { LuLocateFixed } from "react-icons/lu";
 import { parseISO, format } from "date-fns";
 import WeatherIconIndicate from "./WeatherIconIndicate";
+import { TbWorldLatitude } from "react-icons/tb";
+import { TbWorldLongitude } from "react-icons/tb";
+import L from "leaflet";
 import "./Devices.scss";
 import {
   ComposedChart,
@@ -27,7 +30,8 @@ function Devices() {
   const [weatherData, setWeatherData] = useState(null);
   const [searchValue, setSearchValue] = useState("");
   const [location, setLocation] = useState("Thanh%20pho%20Ho%20Chi%20Minh,vn");
-
+  const [layer, setLayer] = useState("temp_new");
+  const mapRef = useRef(null);
   const data = weatherData;
   useEffect(() => {
     const fetchData = async () => {
@@ -43,6 +47,26 @@ function Devices() {
 
     fetchData();
   }, [location]); // Fetch data whenever location changes
+  //fetch Weather maps from OpenWeatherMap
+  useEffect(() => {
+    if (!mapRef.current) {
+      mapRef.current = L.map("map", {
+        center: [51.505, -0.09], // Set this to the center of your map
+        zoom: 13,
+      });
+
+      L.tileLayer(
+        `https://tile.openweathermap.org/map/${layer}/{z}/{x}/{y}.png?appid={apiKey}`,
+        {
+          // Change this to the type of weather data you want
+          apiKey: "731cab9135db147dc33054ebc855d064", // Your OpenWeatherMap API key
+          attribution:
+            '&copy; <a href="https://www.openweathermap.org/">OpenWeatherMap</a>',
+          maxZoom: 19,
+        }
+      ).addTo(mapRef.current);
+    }
+  }, []);
   //handle onSearch button click to search location
   const handleSearch = (value) => {
     setLocation(value);
@@ -101,7 +125,6 @@ function Devices() {
         </div>
       );
     }
-
     return null;
   };
   return (
@@ -144,7 +167,7 @@ function Devices() {
           </Button>
         </div>
       </div>
-      <div className="pt-3">
+      <div className="pt-4">
         <div className="">
           <div className="w-100">
             <Card
@@ -177,6 +200,15 @@ function Devices() {
                 <div>
                   <WeatherIconIndicate icon={data?.list[0].weather[0].icon} />
                 </div>
+                <span className="fw-bold">
+                  Vĩ độ {data?.city.coord?.lat}
+                  <TbWorldLatitude />
+                </span>
+                <span className="fw-bold">
+                  Kinh độ {data?.city.coord?.lon}
+                  <TbWorldLongitude />
+                </span>
+                <span></span>
               </div>
               <div>
                 <div className="d-flex flex-row">
@@ -195,7 +227,7 @@ function Devices() {
                     hoverable
                     title="Dự báo thời tiết"
                     size="small"
-                    className="mt-3 d-flex flex-column"
+                    className="my-3 d-flex flex-column"
                     style={{ overflow: "auto" }}
                   >
                     <Table
@@ -203,7 +235,7 @@ function Devices() {
                       sticky
                       pagination={true}
                       style={{ whiteSpace: "wrap", wordWrap: "break-word" }}
-                      scroll={{ y: "calc(100vh - 55vh)" }}
+                      scroll={{ y: "calc(100vh - 57vh)" }}
                       columns={[
                         {
                           title: "Thời gian",
@@ -247,7 +279,7 @@ function Devices() {
               <Col className="mt-3" span={14}>
                 <Card hoverable title="Bảng biểu" className="no-padding">
                   <div className="d-flex flex-row align-items-start">
-                    <ResponsiveContainer width="100%" height={300} style={{}}>
+                    <ResponsiveContainer width="100%" height={220} style={{}}>
                       <ComposedChart
                         height={600}
                         data={temperatureData}
@@ -292,8 +324,8 @@ function Devices() {
                     </ResponsiveContainer>
                   </div>
                 </Card>
-                <Card style={{}}>
-                  <div className="d-flex">{data?.coords?.lat}</div>
+                <Card className="my-3 map-card" hoverable title="Bản đồ">
+                  <div id="map" style={{ height: "100%", width: "100%" }}></div>
                 </Card>
               </Col>
             </Row>

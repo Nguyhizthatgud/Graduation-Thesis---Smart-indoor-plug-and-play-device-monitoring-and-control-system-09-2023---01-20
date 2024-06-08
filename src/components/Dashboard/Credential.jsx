@@ -4,7 +4,7 @@ import { Button, Badge } from "antd";
 import { Link } from "react-router-dom";
 import { Descriptions, Modal } from "antd";
 import { PlusOutlined, LoadingOutlined } from "@ant-design/icons";
-import { Upload, Form, Input, Image, message } from "antd";
+import { Card, Form, Input, Image, message } from "antd";
 import ImgCrop from "antd-img-crop";
 import { Divider } from "antd";
 import instance from "../services/axios";
@@ -159,44 +159,46 @@ function Credential({ data, setData }) {
             </Divider>
           </div>
         </div>
-        <Descriptions
-          span="2"
-          layout="vertical"
-          bordered
-          labelStyle={{
-            fontWeight: "bold",
-            fontSize: "18px",
-            color: "#rgb(35 35 35)",
-          }}
-          size="small"
-        >
-          <Descriptions.Item label="Tên người dùng">
-            {JSON.parse(localStorage.getItem("user")).username}
-          </Descriptions.Item>
-          <Descriptions.Item label="Email">
-            {JSON.parse(localStorage.getItem("user")).email}
-          </Descriptions.Item>
-          <Descriptions.Item label="Số điện thoại">
-            {JSON.parse(localStorage.getItem("user")).phoneNumber}
-          </Descriptions.Item>
-          <Descriptions.Item label="Trạng thái hoạt động">
-            {data.length > 0 ? (
-              <Badge status="processing" text="Đang hoạt động" />
-            ) : (
-              <Badge status="default" text="Không hoạt động" />
-            )}
-          </Descriptions.Item>
-        </Descriptions>
+        <Card>
+          <Descriptions
+            span="2"
+            layout="vertical"
+            bordered
+            labelStyle={{
+              fontWeight: "bold",
+              fontSize: "18px",
+              color: "#rgb(35 35 35)",
+            }}
+            size="small"
+          >
+            <Descriptions.Item label="Tên người dùng">
+              {JSON.parse(localStorage.getItem("user")).username}
+            </Descriptions.Item>
+            <Descriptions.Item label="Email">
+              {JSON.parse(localStorage.getItem("user")).email}
+            </Descriptions.Item>
+            <Descriptions.Item label="Số điện thoại">
+              {JSON.parse(localStorage.getItem("user")).phoneNumber}
+            </Descriptions.Item>
+            <Descriptions.Item label="Trạng thái hoạt động">
+              {data.length > 0 ? (
+                <Badge status="processing" text="Đang hoạt động" />
+              ) : (
+                <Badge status="default" text="Không hoạt động" />
+              )}
+            </Descriptions.Item>
+          </Descriptions>
 
-        <div className="pt-5 flex flex-row justify-end">
-          <Button type="primary" onClick={showModal} ghost shape="round">
-            Edit
-          </Button>
-          <Divider type="vertical" className="mx-1" />
-          <Button type="primary" onClick={showModal1} ghost shape="round">
-            Password
-          </Button>
-        </div>
+          <div className="pt-5 flex flex-row justify-end">
+            <Button type="primary" onClick={showModal} ghost shape="round">
+              Edit
+            </Button>
+            <Divider type="vertical" className="mx-1" />
+            <Button type="primary" onClick={showModal1} ghost shape="round">
+              Password
+            </Button>
+          </div>
+        </Card>
       </div>
       <Modal
         title="User Information"
