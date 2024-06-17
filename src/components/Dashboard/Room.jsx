@@ -30,7 +30,7 @@ function Room({ data, setData, setDataroom }) {
 
   useEffect(() => {
     const getAllKey = async () => {
-      websocket.current = new WebSocket("ws://157.245.51.60:8120");
+      websocket.current = new WebSocket("ws://206.189.40.229:8120");
       const res = await instance.get("/key");
       // update to parent component
       // establish websocket
@@ -180,7 +180,7 @@ function Room({ data, setData, setDataroom }) {
         className="col Room bg-body-tertiary"
         style={{
           height: "100vh",
-          backgroundImage: "linear-gradient(to right, #e8eaed)  "
+          backgroundImage: "linear-gradient(to right,#e8eaed69)  "
         }}
       >
         <div className="head-bar pt-5 d-flex justify-content-between">

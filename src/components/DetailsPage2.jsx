@@ -21,7 +21,7 @@ export default function DetailsPage2({ Dataroom }) {
   const websocket = React.useRef(null);
   useEffect(() => {
     const getDetailKey = async () => {
-      websocket.current = new WebSocket("ws://157.245.51.60:8120");
+      websocket.current = new WebSocket("ws://206.189.40.229:8120");
       // previous status device
       let prevStatus = {
         device1: null,
