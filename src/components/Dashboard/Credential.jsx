@@ -41,7 +41,7 @@ function Credential({ data, setData }) {
       {loading ? <LoadingOutlined /> : <PlusOutlined />}
       <div
         style={{
-          marginTop: 8,
+          marginTop: 8
         }}
       >
         Upload
@@ -73,7 +73,7 @@ function Credential({ data, setData }) {
         setLoading(false);
         setImageUrl(url);
         form.setFieldsValue({
-          picture: url,
+          picture: url
         });
       });
     }
@@ -102,7 +102,7 @@ function Credential({ data, setData }) {
     const user = await instance.put(`/editUser`, {
       username: values.username,
       email: values.email,
-      phoneNumber: values.phoneNumber,
+      phoneNumber: values.phoneNumber
     });
     const getUsr = JSON.parse(localStorage.getItem("user"));
     getUsr.username = user.data.user.username;
@@ -116,13 +116,13 @@ function Credential({ data, setData }) {
     try {
       const user = await instance.post(`/editPassword`, {
         prevPassword: values.prevPassword,
-        password: values.password,
+        password: values.password
       });
       toast.success("Change password success", {
         autoClose: 5000,
         position: "top-center",
         hideProgressBar: false,
-        closeOnClick: true,
+        closeOnClick: true
       });
       setIsModalOpen1(false);
     } catch (error) {
@@ -130,7 +130,7 @@ function Credential({ data, setData }) {
         autoClose: 5000,
         position: "top-center",
         hideProgressBar: false,
-        closeOnClick: true,
+        closeOnClick: true
       });
     }
   };
@@ -142,20 +142,18 @@ function Credential({ data, setData }) {
           height: "100vh",
           width: "100%",
           paddingLeft: "1.25rem",
-          backgroundImage:
-            "linear-gradient(to right, hsl(0deg 0% 91.37%),hsl(0deg 0% 78.43%))",
+
+          backgroundImage: "linear-gradient(to right, #e8eaed69)"
         }}
       >
         <div
           style={{
-            display: "flex",
+            display: "flex"
           }}
         >
           <div className="pt-5">
             <Divider orientation="left" orientationMargin="0">
-              <span className="text-uppercase fw-bold fs-4">
-                Thông tin người dùng
-              </span>
+              <span className="text-uppercase fw-bold fs-4">Thông tin người dùng</span>
             </Divider>
           </div>
         </div>
@@ -167,16 +165,14 @@ function Credential({ data, setData }) {
             labelStyle={{
               fontWeight: "bold",
               fontSize: "18px",
-              color: "#rgb(35 35 35)",
+              color: "#rgb(35 35 35)"
             }}
             size="small"
           >
             <Descriptions.Item label="Tên người dùng">
               {JSON.parse(localStorage.getItem("user")).username}
             </Descriptions.Item>
-            <Descriptions.Item label="Email">
-              {JSON.parse(localStorage.getItem("user")).email}
-            </Descriptions.Item>
+            <Descriptions.Item label="Email">{JSON.parse(localStorage.getItem("user")).email}</Descriptions.Item>
             <Descriptions.Item label="Số điện thoại">
               {JSON.parse(localStorage.getItem("user")).phoneNumber}
             </Descriptions.Item>
@@ -200,12 +196,7 @@ function Credential({ data, setData }) {
           </div>
         </Card>
       </div>
-      <Modal
-        title="User Information"
-        open={isModalOpen}
-        onOk={form.submit}
-        onCancel={handleCancel}
-      >
+      <Modal title="User Information" open={isModalOpen} onOk={form.submit} onCancel={handleCancel}>
         <Form
           form={form}
           name="basic"
@@ -215,7 +206,7 @@ function Credential({ data, setData }) {
           initialValues={{
             username: JSON.parse(localStorage.getItem("user")).username,
             email: JSON.parse(localStorage.getItem("user")).email,
-            phoneNumber: JSON.parse(localStorage.getItem("user")).phoneNumber,
+            phoneNumber: JSON.parse(localStorage.getItem("user")).phoneNumber
           }}
           onFinish={handleOnEdit}
           autoComplete="off"
@@ -226,8 +217,8 @@ function Credential({ data, setData }) {
             rules={[
               {
                 required: true,
-                message: "Please Input your username!",
-              },
+                message: "Please Input your username!"
+              }
             ]}
           >
             <Input />
@@ -238,8 +229,8 @@ function Credential({ data, setData }) {
             rules={[
               {
                 required: true,
-                message: "Please Input your email!",
-              },
+                message: "Please Input your email!"
+              }
             ]}
           >
             <Input />
@@ -250,8 +241,8 @@ function Credential({ data, setData }) {
             rules={[
               {
                 required: true,
-                message: "Please Input your Phone Number!",
-              },
+                message: "Please Input your Phone Number!"
+              }
             ]}
           >
             <Input />
@@ -259,12 +250,7 @@ function Credential({ data, setData }) {
         </Form>
       </Modal>
       {/* edit password modal */}
-      <Modal
-        title="Change Password"
-        open={isModalOpen1}
-        onOk={form1.submit}
-        onCancel={handleCancel1}
-      >
+      <Modal title="Change Password" open={isModalOpen1} onOk={form1.submit} onCancel={handleCancel1}>
         <Form
           form={form1}
           name="basic"
@@ -280,8 +266,8 @@ function Credential({ data, setData }) {
             rules={[
               {
                 required: true,
-                message: "Please Input your old password!",
-              },
+                message: "Please Input your old password!"
+              }
             ]}
           >
             <Input.Password />
@@ -292,8 +278,8 @@ function Credential({ data, setData }) {
             rules={[
               {
                 required: true,
-                message: "Please Input your new password!",
-              },
+                message: "Please Input your new password!"
+              }
             ]}
           >
             <Input.Password />
@@ -304,8 +290,8 @@ function Credential({ data, setData }) {
             rules={[
               {
                 required: true,
-                message: "Please Input your confirm password!",
-              },
+                message: "Please Input your confirm password!"
+              }
             ]}
           >
             <Input.Password />

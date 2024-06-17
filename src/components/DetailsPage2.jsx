@@ -29,7 +29,7 @@ export default function DetailsPage2({ Dataroom }) {
         device3: null,
         device4: null,
         device5: null,
-        device6: null,
+        device6: null
       };
       const res = await instance.get(`/key/${id}`);
       setData(res.data);
@@ -146,11 +146,7 @@ export default function DetailsPage2({ Dataroom }) {
   }, [id]);
 
   console.log(currentData);
-  function checkDeviceStatusAndNotify(
-    deviceStatus,
-    prevDeviceStatus,
-    deviceNum
-  ) {
+  function checkDeviceStatusAndNotify(deviceStatus, prevDeviceStatus, deviceNum) {
     // Check if the device status has changed
     if (deviceStatus !== prevDeviceStatus) {
       // Destroy all existing messages
@@ -174,7 +170,7 @@ export default function DetailsPage2({ Dataroom }) {
       JSON.stringify({
         type: "message",
         id: data.key,
-        device1: checked ? 1 : 0,
+        device1: checked ? 1 : 0
       })
     );
     enable3.current = true;
@@ -186,7 +182,7 @@ export default function DetailsPage2({ Dataroom }) {
       JSON.stringify({
         type: "message",
         id: data.key,
-        device2: checked ? 1 : 0,
+        device2: checked ? 1 : 0
       })
     );
     enable4.current = true;
@@ -196,8 +192,7 @@ export default function DetailsPage2({ Dataroom }) {
     <Layout
       style={{
         height: "100vh",
-        backgroundImage:
-          "linear-gradient(to right, hsl(0deg 0% 91.37%),hsl(0deg 0% 78.43%))",
+        backgroundImage: "linear-gradient(to right, #e8eaed69)"
       }}
     >
       <div className="container">
@@ -221,8 +216,7 @@ export default function DetailsPage2({ Dataroom }) {
           </button>
 
           <button className="btn btn-outline-secondary  btn-sm">
-            Mã liên kết:{" "}
-            <span className="badge text-bg-secondary">{data?.key}</span>
+            Mã liên kết: <span className="badge text-bg-secondary">{data?.key}</span>
           </button>
         </div>
       </div>
@@ -232,7 +226,7 @@ export default function DetailsPage2({ Dataroom }) {
           direction="vertical"
           size="middle"
           style={{
-            display: "flex",
+            display: "flex"
           }}
           wrap="true"
         >
@@ -241,7 +235,7 @@ export default function DetailsPage2({ Dataroom }) {
               paddingTop: "20px",
               width: "100%",
               border: "100px #000",
-              position: "relative", // Add this line
+              position: "relative" // Add this line
             }}
           >
             <UserOutlined
@@ -252,7 +246,7 @@ export default function DetailsPage2({ Dataroom }) {
                 paddingTop: "20px",
                 left: "0",
                 fontSize: "30px",
-                color: "black",
+                color: "black"
               }}
             />{" "}
             <Col
@@ -262,7 +256,7 @@ export default function DetailsPage2({ Dataroom }) {
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "center",
-                alignItems: "center",
+                alignItems: "center"
               }}
             >
               <Card
@@ -270,7 +264,7 @@ export default function DetailsPage2({ Dataroom }) {
                 hoverable
                 size="small"
                 style={{
-                  width: 300,
+                  width: 300
                 }}
               >
                 <Box
@@ -279,7 +273,7 @@ export default function DetailsPage2({ Dataroom }) {
                     display: "flex",
                     flexDirection: "column",
                     justifyContent: "center",
-                    alignItems: "center",
+                    alignItems: "center"
                   }}
                 >
                   <div>adasdaea</div>
@@ -301,7 +295,7 @@ export default function DetailsPage2({ Dataroom }) {
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "center",
-                alignItems: "center",
+                alignItems: "center"
               }}
             >
               <Card
@@ -309,7 +303,7 @@ export default function DetailsPage2({ Dataroom }) {
                 hoverable
                 size="small"
                 style={{
-                  width: 300,
+                  width: 300
                 }}
               >
                 <h3>{data?.device2.label}</h3>
@@ -324,22 +318,14 @@ export default function DetailsPage2({ Dataroom }) {
           </Row>
         </Space>
       </div>
-      <Space
-        className="sensorbase"
-        hoverable
-        style={{ padding: "1.25rem 1.25rem 0 0" }}
-      >
+      <Space className="sensorbase" hoverable style={{ padding: "1.25rem 1.25rem 0 0" }}>
         <Row>
           <Card title="khối cảm biến">
             <Card.Grid className="content" hoverable>
               <h3>
                 {data?.device3.label}: {currentData?.device3} C
               </h3>
-              <Temperature
-                value={currentData?.device3 ? currentData?.device3 : 0}
-                height={300}
-                width={300}
-              />
+              <Temperature value={currentData?.device3 ? currentData?.device3 : 0} height={300} width={300} />
             </Card.Grid>
             <Card.Grid className="content" hoverable>
               <h3>{data?.device5}</h3>
@@ -359,7 +345,7 @@ export default function DetailsPage2({ Dataroom }) {
               display: "flex",
               flexDirection: "column",
               justifyContent: "center",
-              alignItems: "center",
+              alignItems: "center"
             }}
           >
             <Card
@@ -367,17 +353,14 @@ export default function DetailsPage2({ Dataroom }) {
               hoverable
               size="small"
               style={{
-                width: 300,
+                width: 300
               }}
             >
               <h3>
                 {data?.device4.label}: {currentData?.device4} C
               </h3>
               {data?.device4?.Chart === 0 ? (
-                <Temperature
-                  value={currentData?.device4 ? currentData?.device4 : 0}
-                  height={330}
-                />
+                <Temperature value={currentData?.device4 ? currentData?.device4 : 0} height={330} />
               ) : (
                 <PM value={currentData?.device4 ? currentData?.device4 : 0} />
               )}
@@ -390,7 +373,7 @@ export default function DetailsPage2({ Dataroom }) {
               display: "flex",
               flexDirection: "column",
               justifyContent: "center",
-              alignItems: "center",
+              alignItems: "center"
             }}
           >
             <Card>
@@ -410,7 +393,7 @@ export default function DetailsPage2({ Dataroom }) {
               display: "flex",
               flexDirection: "column",
               justifyContent: "center",
-              alignItems: "center",
+              alignItems: "center"
             }}
           >
             <Card>
