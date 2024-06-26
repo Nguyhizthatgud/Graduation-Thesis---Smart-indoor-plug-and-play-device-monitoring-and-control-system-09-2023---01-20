@@ -5,7 +5,7 @@ import { Button, Form, Input, InputNumber } from "antd";
 import { useNavigate } from "react-router-dom";
 import { TbUserSquare } from "react-icons/tb";
 import { LoadingOutlined, HomeOutlined, UserOutlined, HomeFilled } from "@ant-design/icons";
-import { Breadcrumb } from 'antd';
+import { Breadcrumb } from "antd";
 import Tooltip from "@mui/material/Tooltip";
 import { message, Upload } from "antd";
 // use context set value for context
@@ -57,11 +57,10 @@ function dataURLtoFile(dataurl, filename) {
 function RegisterPage() {
   const Navigate = useNavigate();
   // use context set value for context
+  const [buttonDisabled, setButtonDisabled] = useState(false);
   const userContext = useContext(UserContext);
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
-  const [imageUrl, setImageUrl] = useState();
-  const [successData, setSuccessData] = useState(null);
   const [image, setImage] = useState(null); // [1]
   const [avialable, setAvialable] = useState(true); // [1]
   const videoRef = useRef(null);
@@ -73,11 +72,13 @@ function RegisterPage() {
   };
   const onMediaError = (error) => {
     console.error("media error", error);
+    message.error(
+      "Unable to access the camera. Please ensure that a camera is installed and not currently being used by another application."
+    );
   };
   useMemo(() => {
     navigator.mediaDevices.getUserMedia(mediaStreamConstraints).then(onMediaSuccess).catch(onMediaError);
   }, []);
-
   const handleTakePhoto = async () => {
     // create form data
     setAvialable(false);
@@ -90,12 +91,12 @@ function RegisterPage() {
     const image = new Image();
     image.src = dataURI;
     setImage(image);
+    setButtonDisabled(true);
   };
   const handleSubmit = async () => {
     if (avialable) {
       message.error("Please take photo");
       return;
-
     }
     // create form data
     if (!image) {
@@ -124,27 +125,34 @@ function RegisterPage() {
       setLoading(true);
       const response = await instance.post("/signUpWithImage", formData);
       // show toast
-      toast.success("Register success", {
+      toast.success("Đăng ký thành công", {
         autoClose: 5000,
         position: "top-center",
         hideProgressBar: false,
         closeOnClick: true
       });
+      //turning off camera using
+      const videoElement = document.querySelector("video");
+      const mediaStream = videoElement.srcObject;
+      const tracks = mediaStream.getTracks();
+      tracks.forEach((track) => {
+        track.stop();
+      });
+      videoElement.srcObject = null;
+      //direct to login page
     } catch (error) {
       setLoading(false);
       console.log(error.response);
-      toast.error(
-        error.response?.data?.message || "Register fail"
-        , {
-          autoClose: 5000,
-          position: "top-center",
-          hideProgressBar: false,
-          closeOnClick: true
-        });
+      toast.error(error.response?.data?.message || "Lỗi Đăng ký", {
+        autoClose: 5000,
+        position: "top-center",
+        hideProgressBar: false,
+        closeOnClick: true
+      });
       // reset all state
       setImage(null);
       form.resetFields();
-      navigator.mediaDevices.getUserMedia(mediaStreamConstraints).then(onMediaSuccess).catch(onMediaError);
+      Navigate("/auth");
     }
   };
   return (
@@ -232,53 +240,85 @@ function RegisterPage() {
                             style={{ width: 300, height: 300, paddingBottom: 20, paddingTop: 20 }}
                           />
                         ) : (
-                        <div>
-                            <div className="framebox" style={{ width: 300, height: 300, display: "flex" ,position: "absolute", zIndex:"1", justifyContent:"center", alignItems:"center"}}>
-                            <div className="facebox" style={{ width: "50%", height: "50%",display: "flex",alignItems:"center",justifyContent:"center",borderRadius: "10%"}}>
+                          <div>
+                            <div
+                              className="framebox"
+                              style={{
+                                width: 300,
+                                height: 300,
+                                display: "flex",
+                                position: "absolute",
+                                zIndex: "1",
+                                justifyContent: "center",
+                                alignItems: "center"
+                              }}
+                            >
+                              <div
+                                className="facebox"
+                                style={{
+                                  width: "50%",
+                                  height: "50%",
+                                  display: "flex",
+                                  alignItems: "center",
+                                  justifyContent: "center",
+                                  borderRadius: "10%"
+                                }}
+                              >
                                 <div></div>
-                                <TbUserSquare style={{ fontSize: '50px', opacity: 0.3}}/></div>
+                                <TbUserSquare style={{ fontSize: "50px", opacity: 0.3 }} />
+                              </div>
                             </div>
                             <video ref={videoRef} autoPlay style={{ width: 300, height: 300 }} />
-                        </div>
-                         
+                          </div>
                         )}
                       </Form.Item>
-                      <Form.Item>
-                        <Button
-                          type="primary"
-                          onClick={() => {
-                            handleTakePhoto();
-                          }}
-                        >
-                          Take Photo
-                        </Button>
-                      </Form.Item>
-                      <Form.Item>
-                        <Button type="primary" onClick={handleSubmit} disabled={loading === true ? true : false}>
-                          {loading === true ? <LoadingOutlined /> : "Register"}
-                        </Button>
-                      </Form.Item>
+                      <div className="d-flex align-items-center justify-content-center">
+                        <Tooltip title="Take photo">
+                          <Button
+                            className="me-3 d-flex justify-items-center align-items-center"
+                            type="primary"
+                            onClick={() => {
+                              handleTakePhoto();
+                            }}
+                            disabled={buttonDisabled}
+                          >
+                            Chụp ảnh
+                          </Button>
+                        </Tooltip>
+                        <Tooltip title="Đăng ký">
+                          <Button
+                            className="me-5 d-flex justify-items-center align-items-center"
+                            type="primary"
+                            onClick={handleSubmit}
+                            disabled={loading === true ? true : false}
+                            style={{ position: "absolute", right: "3.5rem" }}
+                          >
+                            {loading === true ? <LoadingOutlined /> : "Đăng ký"}
+                          </Button>
+                        </Tooltip>
+                      </div>
                     </Form>
                   </div>
-                  <Divider
-                    style={{ display: 'flex-row', flexWrap: 'wrap' }}>
+                  <Divider style={{ display: "flex-row", flexWrap: "wrap" }}>
                     <Breadcrumb
                       items={[
                         {
-                          href: '/',
-                          title: (<>
-                            <HomeFilled />
-                            <span>Homepage</span>
-                          </>),
+                          href: "/",
+                          title: (
+                            <>
+                              <HomeFilled />
+                              <span>Homepage</span>
+                            </>
+                          )
                         },
                         {
-                          href: '/auth',
+                          href: "/auth",
                           title: (
                             <>
                               <UserOutlined />
                               <span>sign-in page</span>
                             </>
-                          ),
+                          )
                         }
                       ]}
                     />
@@ -289,7 +329,7 @@ function RegisterPage() {
           </div>
         </div>
       </div>
-    </div >
+    </div>
   );
 }
 

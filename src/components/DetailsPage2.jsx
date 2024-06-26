@@ -5,9 +5,13 @@ import { PM, Temperature } from "react-environment-chart";
 import instance from "./services/axios";
 import { useParams } from "react-router-dom";
 import { message, Layout, Card } from "antd";
-import { UserOutlined } from "@ant-design/icons";
 import Box from "@mui/material/Box";
-
+import { RiRemoteControl2Fill } from "react-icons/ri";
+import { BiRadioCircle } from "react-icons/bi";
+import { BsSpeedometer2 } from "react-icons/bs";
+import { IoClipboardOutline } from "react-icons/io5";
+import Meta from "antd/lib/card/Meta";
+import "./DetailsPage2.scss";
 export default function DetailsPage2({ Dataroom }) {
   let { id } = useParams();
   const [data, setData] = useState(null);
@@ -189,16 +193,19 @@ export default function DetailsPage2({ Dataroom }) {
   };
 
   return (
-    <Layout
+    <div
+      className="col-auto"
       style={{
         height: "100vh",
         backgroundImage: "linear-gradient(to right, #e8eaed69)"
       }}
     >
-      <div className="container">
+      <div className="top-hut">
         <div className="head-bar pt-5 d-flex justify-content-between">
           <Divider orientation="left" orientationMargin="0">
-            <span className="text-uppercase fw-bold fs-4">{data?.name}</span>
+            <span className="text-uppercase fw-bold fs-4">
+              Tên thiết bị: <span className="">{data?.name}</span>
+            </span>
           </Divider>
         </div>
         <div className="badge-button mt-3 d-flex ">
@@ -220,196 +227,166 @@ export default function DetailsPage2({ Dataroom }) {
           </button>
         </div>
       </div>
-      <div className="control-board container">
-        {" "}
-        <Space
-          direction="vertical"
-          size="middle"
-          style={{
-            display: "flex"
-          }}
-          wrap="true"
-        >
-          <Row
-            style={{
-              paddingTop: "20px",
-              width: "100%",
-              border: "100px #000",
-              position: "relative" // Add this line
-            }}
-          >
-            <UserOutlined
-              type="user"
-              style={{
-                position: "absolute",
-                top: "0",
-                paddingTop: "20px",
-                left: "0",
-                fontSize: "30px",
-                color: "black"
-              }}
-            />{" "}
-            <Col
-              span={8}
-              style={{
-                // center all element in column
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "center"
-              }}
-            >
-              <Card
-                bordered={true}
-                hoverable
-                size="small"
-                style={{
-                  width: 300
-                }}
-              >
-                <Box
-                  //center all element in box
-                  sx={{
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "center",
-                    alignItems: "center"
-                  }}
-                >
-                  <div>adasdaea</div>
-                  <div>adaseasca</div>
-                  <h3>{data?.device1.label}</h3>
-                  <Switch
-                    value={currentData?.device1 === 1 ? true : false}
-                    checkedChildren="Bật"
-                    unCheckedChildren="Tắt"
-                    onChange={onChangeDevice1}
-                  />
-                </Box>
-              </Card>
+      <Card
+        className="my-3 add-padding"
+        style={{ backgroundColor: "rgb(240 242 245)", height: "790px", maxHeight: "800px" }}
+      >
+        <div className="control-board">
+          {" "}
+          <Row>
+            <Col className="m-1" flex={4}>
+              <Divider orientation="left" orientationMargin="0">
+                <span className="text-uppercase fw-bold fs-6">
+                  <RiRemoteControl2Fill className="me-1" />
+                  Thiết bị điều khiển
+                </span>
+              </Divider>
+              <Row gutter={16}>
+                <Col span={8}>
+                  <Card
+                    className="no-padding"
+                    title={
+                      <div>
+                        <div>{(data?.device1 || "Loading...").toUpperCase()}</div>
+                        <div style={{ fontSize: "0.75rem", color: "grey" }}>Thiết bị - 1</div>
+                      </div>
+                    }
+                    bordered={false}
+                    extra={
+                      <BiRadioCircle
+                        style={{
+                          fontSize: "2rem",
+                          color: currentData?.device1 === 1 ? "green" : "gray"
+                        }}
+                      />
+                    }
+                  >
+                    <div className="d-flex justify-content-between">
+                      <span>Trạng thái điều khiển:</span>
+                      <Switch checked={currentData?.device1 === 1} onChange={onChangeDevice1} disabled={!stateDevice} />
+                    </div>
+                  </Card>
+                </Col>
+                <Col span={8}>
+                  <Card
+                    className="no-padding"
+                    title={
+                      <div>
+                        <div>{(data?.device2 || "Loading...").toUpperCase()}</div>
+                        <div style={{ fontSize: "0.75rem", color: "grey" }}>Thiết bị - 2</div>
+                      </div>
+                    }
+                    bordered={false}
+                    extra={
+                      <BiRadioCircle
+                        style={{ fontSize: "2rem", color: currentData?.device2 === 1 ? "green" : "gray" }}
+                      />
+                    }
+                  >
+                    <div className="d-flex justify-content-between">
+                      <span>Trạng thái điều khiển:</span>
+                      <Switch checked={currentData?.device2 === 1} onChange={onChangeDevice2} disabled={!stateDevice} />
+                    </div>
+                  </Card>
+                </Col>
+                <Col span={8}>
+                  <Card
+                    className="no-padding"
+                    title={
+                      <div>
+                        <div>{(data?.device3 || "Loading...").toUpperCase()}</div>
+                        <div style={{ fontSize: "0.75rem", color: "grey" }}>Thiết bị - 3</div>
+                      </div>
+                    }
+                    bordered={false}
+                    extra={
+                      <BiRadioCircle
+                        style={{ fontSize: "2rem", color: currentData?.device3 === 1 ? "green" : "gray" }}
+                      />
+                    }
+                  >
+                    <div className="d-flex justify-content-between">
+                      <span>Trạng thái thiết bị:</span>
+                      <Switch checked={currentData?.device3 === 1} disabled />
+                    </div>
+                  </Card>
+                </Col>
+              </Row>
+              <Divider orientation="left" orientationMargin="0">
+                <span className="text-uppercase fw-bold fs-6">
+                  <BsSpeedometer2 className="me-1" />
+                  Thiết bị cảm biến
+                </span>
+              </Divider>
+              <Row gutter={16}>
+                <Col span={12}>
+                  <Card
+                    className="no-padding"
+                    title={
+                      <div>
+                        <div>{(data?.device5 || "Loading...").toUpperCase()}</div>
+                        <div style={{ fontSize: "0.75rem", color: "grey" }}>Thiết bị - 5</div>
+                      </div>
+                    }
+                    bordered={false}
+                    extra={
+                      <BiRadioCircle
+                        style={{ fontSize: "2rem", color: currentData?.device5 === 1 ? "green" : "gray" }}
+                      />
+                    }
+                  >
+                    <div className="d-flex justify-content-between">
+                      <span>Trạng thái thiết bị:</span>
+                      <Switch checked={currentData?.device5 === 1} disabled />
+                    </div>
+                  </Card>
+                  <Card
+                    className="no-padding mt-3"
+                    title={
+                      <div>
+                        <div>{(data?.device6 || "Loading...").toUpperCase()}</div>
+                        <div style={{ fontSize: "0.75rem", color: "grey" }}>Thiết bị - 6</div>
+                      </div>
+                    }
+                    bordered={false}
+                    extra={
+                      <BiRadioCircle
+                        style={{ fontSize: "2rem", color: currentData?.device6 === 1 ? "green" : "gray" }}
+                      />
+                    }
+                  >
+                    <div className="d-flex justify-content-between">
+                      <span>Trạng thái thiết bị:</span>
+                      <Switch checked={currentData?.device6 === 1} disabled />
+                    </div>
+                  </Card>
+                </Col>
+                <Col span={12}>
+                  <Card>
+                    <h3>
+                      {data?.device4.label}: {currentData?.device4} C
+                    </h3>
+                    {data?.device4?.Chart === 0 ? (
+                      <Temperature value={currentData?.device4 ? currentData?.device4 : 0} height={350} />
+                    ) : (
+                      <PM value={currentData?.device4 ? currentData?.device4 : 0} />
+                    )}
+                  </Card>
+                </Col>
+              </Row>
             </Col>
-            <Col
-              span={8}
-              style={{
-                // center all element
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "center"
-              }}
-            >
-              <Card
-                bordered={true}
-                hoverable
-                size="small"
-                style={{
-                  width: 300
-                }}
-              >
-                <h3>{data?.device2.label}</h3>
-                <Switch
-                  value={currentData?.device2 === 1 ? true : false}
-                  checkedChildren="Bật"
-                  unCheckedChildren="Tắt"
-                  onChange={onChangeDevice2}
-                />
-              </Card>
+            <Divider type="vertical" style={{ height: "auto" }} />
+            <Col flex={2}>
+              <Divider orientation="left" orientationMargin="0">
+                <span className="text-uppercase fw-bold fs-6">
+                  <IoClipboardOutline className="me-1" />
+                  Dữ liệu môi trường
+                </span>
+              </Divider>
             </Col>
           </Row>
-        </Space>
-      </div>
-      <Space className="sensorbase" hoverable style={{ padding: "1.25rem 1.25rem 0 0" }}>
-        <Row>
-          <Card title="khối cảm biến">
-            <Card.Grid className="content" hoverable>
-              <h3>
-                {data?.device3.label}: {currentData?.device3} C
-              </h3>
-              <Temperature value={currentData?.device3 ? currentData?.device3 : 0} height={300} width={300} />
-            </Card.Grid>
-            <Card.Grid className="content" hoverable>
-              <h3>{data?.device5}</h3>
-              <Switch
-                value={currentData?.device5 === 1 ? true : false}
-                checkedChildren="On"
-                unCheckedChildren="Off"
-                disabled
-              />
-            </Card.Grid>
-            <Card.Grid className="content" hoverable></Card.Grid>
-          </Card>
-          <Col
-            span={8}
-            style={{
-              // center all element
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              alignItems: "center"
-            }}
-          >
-            <Card
-              bordered={true}
-              hoverable
-              size="small"
-              style={{
-                width: 300
-              }}
-            >
-              <h3>
-                {data?.device4.label}: {currentData?.device4} C
-              </h3>
-              {data?.device4?.Chart === 0 ? (
-                <Temperature value={currentData?.device4 ? currentData?.device4 : 0} height={330} />
-              ) : (
-                <PM value={currentData?.device4 ? currentData?.device4 : 0} />
-              )}
-            </Card>
-          </Col>
-          <Col
-            span={8}
-            style={{
-              // center all element
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              alignItems: "center"
-            }}
-          >
-            <Card>
-              <h3>{data?.device5}</h3>
-              <Switch
-                value={currentData?.device5 === 1 ? true : false}
-                checkedChildren="On"
-                unCheckedChildren="Off"
-                disabled
-              />
-            </Card>
-          </Col>
-          <Col
-            span={8}
-            style={{
-              // center all element
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              alignItems: "center"
-            }}
-          >
-            <Card>
-              <h3>{data?.device6}</h3>
-              <Switch
-                value={currentData?.device6 === 1 ? true : false}
-                checkedChildren="On"
-                unCheckedChildren="Off"
-                disabled
-              />
-            </Card>
-          </Col>
-        </Row>
-      </Space>
-      <Space></Space>
-      <Space>Khối ví trí</Space>
-    </Layout>
+        </div>
+      </Card>
+    </div>
   );
 }

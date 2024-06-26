@@ -33,11 +33,10 @@ function Bar({ activeState }) {
           aria-orientation="vertical"
         >
           <li className="nav-item">
-            <Tooltip title="Vị trí" placement="right">
+            <Tooltip title="Vị trí - thiết bị" placement="right">
               <Link
                 to={"/dashboard"}
-                className={`nav-link d-flex justify-content-center ${activeState === 1 ? "active" : null
-                  }`}
+                className={`nav-link d-flex justify-content-center ${activeState === 1 ? "active" : null}`}
                 aria-current="page"
                 role="tab"
                 aria-selected="true"
@@ -47,11 +46,10 @@ function Bar({ activeState }) {
             </Tooltip>
           </li>
           <li className="nav-item">
-            <Tooltip title="Danh sách thiết bị" placement="right">
+            <Tooltip title="Dự báo thời tiết - AQI" placement="right">
               <Link
                 to={"/dashboard/devices"}
-                className={`nav-link d-flex justify-content-center ${activeState === 2 ? "active" : null
-                  }`}
+                className={`nav-link d-flex justify-content-center ${activeState === 2 ? "active" : null}`}
                 aria-current="page"
                 role="tab"
                 aria-selected="false"
@@ -61,11 +59,10 @@ function Bar({ activeState }) {
             </Tooltip>
           </li>
           <li className="nav-item">
-            <Tooltip title="Thông tin xác thực" placement="right">
+            <Tooltip title="Thông tin người dùng" placement="right">
               <Link
                 to={"/dashboard/credential"}
-                className={`nav-link d-flex justify-content-center ${activeState === 3 ? "active" : null
-                  }`}
+                className={`nav-link d-flex justify-content-center ${activeState === 3 ? "active" : null}`}
                 aria-current="page"
                 role="tab"
                 aria-selected="false"
@@ -76,10 +73,7 @@ function Bar({ activeState }) {
           </li>
         </ul>
       </div>
-      <div
-        className="dropdown-center open d-flex flex-shrink-0 mb-3 mx-auto"
-        data-bs-theme="dark"
-      >
+      <div className="dropdown-center open d-flex flex-shrink-0 mb-3 mx-auto" data-bs-theme="dark">
         <a
           className="member text-decoration-none dropdown-toggle"
           type="button"
@@ -100,11 +94,7 @@ function Bar({ activeState }) {
           <a className="dropdown-item" href="#">
             Profile
           </a>
-          <a
-            className="dropdown-item border-top text-warning"
-            href="#"
-            onClick={handleSignOut}
-          >
+          <a className="dropdown-item border-top text-warning" href="#" onClick={handleSignOut}>
             Sign out
           </a>
         </div>

@@ -13,7 +13,7 @@ function Information() {
   }, []);
   useEffect(() => {
     const getAllKey = async () => {
-      websocket.current = new WebSocket("ws://157.245.51.60:8120");
+      websocket.current = new WebSocket("ws://206.189.40.229:8120");
       const res = await instance.get("/key");
       // update to parent component
       // establish websocket
@@ -29,7 +29,7 @@ function Information() {
               res.data.map((item) => {
                 return {
                   ...item,
-                  isActive: false,
+                  isActive: false
                 };
               })
             );
@@ -45,7 +45,7 @@ function Information() {
                   if (item.key === data[i].id) {
                     return {
                       ...item,
-                      isActive: true,
+                      isActive: true
                     };
                   }
                   return item;
@@ -72,9 +72,7 @@ function Information() {
           <div className="devices">
             <div className="devices-box d-flex justify-content-between">
               <i class="bi bi-box p-2 ">
-                <span className="p-2 fs-md-4 fs-ms-2 text-warning-emphasis fw-bold">
-                  Thiết bị
-                </span>
+                <span className="p-2 fs-md-4 fs-ms-2 text-warning-emphasis fw-bold">Thiết bị</span>
               </i>
               <i className="bi bi-search p-2" role="button"></i>
             </div>
@@ -82,7 +80,7 @@ function Information() {
               className="fs-6 p-1"
               style={{
                 display: "flex",
-                justifyContent: "space-between",
+                justifyContent: "space-between"
               }}
             >
               <div>Số lượng Thiết bị</div>
@@ -94,9 +92,7 @@ function Information() {
           <div className="devices">
             <div className="devices-box d-flex justify-content-between">
               <i class="bi bi-geo p-2 ">
-                <span className="p-2 text-warning-emphasis fw-bold">
-                  Vị trí
-                </span>
+                <span className="p-2 text-warning-emphasis fw-bold">Vị trí</span>
               </i>
               <i className="bi bi-search p-2" role="button"></i>
             </div>
@@ -104,7 +100,7 @@ function Information() {
               className="fs-6 p-1"
               style={{
                 display: "flex",
-                justifyContent: "space-between",
+                justifyContent: "space-between"
               }}
             >
               <div>Vị trí hoạt động</div>
@@ -116,9 +112,7 @@ function Information() {
           <div className="devices">
             <div className="devices-box d-flex justify-content-between">
               <i class="bi bi-person-badge p-2 ">
-                <span className="p-2 fw-bold text-warning-emphasis">
-                  Người dùng
-                </span>
+                <span className="p-2 fw-bold text-warning-emphasis">Người dùng</span>
               </i>
               <i className="bi bi-search p-2" role="button"></i>
             </div>
@@ -126,7 +120,7 @@ function Information() {
               className="fs-6 p-1"
               style={{
                 display: "flex",
-                justifyContent: "space-between",
+                justifyContent: "space-between"
               }}
             >
               <div>Tên :</div>
@@ -136,7 +130,7 @@ function Information() {
               className="fs-6 p-1"
               style={{
                 display: "flex",
-                justifyContent: "space-between",
+                justifyContent: "space-between"
               }}
             >
               <div>Email:</div>
@@ -146,7 +140,7 @@ function Information() {
               className="fs-6 p-1"
               style={{
                 display: "flex",
-                justifyContent: "space-between",
+                justifyContent: "space-between"
               }}
             >
               <div>So dien thoai :</div>
@@ -159,9 +153,7 @@ function Information() {
         <p className="flex-grow-1 position-absolute bottom-0 start-0 mx-3 fw-semibold">
           {currentTime.toLocaleDateString()}
         </p>
-        <p className="position-absolute bottom-0 end-0 mx-3 fw-semibold">
-          {currentTime.toLocaleTimeString()}
-        </p>
+        <p className="position-absolute bottom-0 end-0 mx-3 fw-semibold">{currentTime.toLocaleTimeString()}</p>
       </div>
     </div>
   );

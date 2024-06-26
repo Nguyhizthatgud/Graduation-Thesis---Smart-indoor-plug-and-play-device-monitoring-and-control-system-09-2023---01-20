@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Container, Spinner } from "react-bootstrap";
+
 import { Breadcrumb } from "antd";
 import { Divider, Button } from "antd";
 import { Input, Spin } from "antd";
@@ -134,7 +134,7 @@ function Devices() {
           className="custom-tooltip"
           style={{
             backgroundColor: "white",
-            padding: "0.5rem",
+            padding: "0.1rem",
             border: "1px solid #ccc",
             borderRadius: "0.5rem"
           }}
@@ -191,7 +191,6 @@ function Devices() {
       </div>
       {isLoading ? (
         <Spin
-          Style
           size="large"
           title="Đang tải"
           style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100%" }}
@@ -219,7 +218,7 @@ function Devices() {
                 className="text-wrap"
                 size="small"
                 style={{
-                  backgroundColor: "rgb(165 165 165)"
+                  backgroundColor: "rgb(207 213 221)"
                 }}
               >
                 <div className="d-flex flex-col justify-content-between">
@@ -249,15 +248,15 @@ function Devices() {
                     </Col>
                     <Col className="d-flex flex-column justify-content-center align-items-center">
                       <span className="fw-bold">Khả năng mưa</span>
-                      <div>{data?.list[1].pop}%</div>
+                      <div>{data?.list[1].pop * 100}%</div>
                     </Col>
                     <Col className="d-flex flex-column justify-content-center align-items-center">
                       <span className="fw-bold">Tốc độ gió</span>
                       <div>{data?.list[1].wind.speed} m/s</div>
                     </Col>
                     <Col ClassName="d-flex flex-column justify-content-center align-items-center">
-                      <span className="fw-bold">Mây</span>
-                      <div>{data?.list[1].clouds.all}%</div>
+                      <span className="fw-bold">Độ phủ mây</span>
+                      <div className="text-center">{data?.list[1].clouds.all}%</div>
                     </Col>
 
                     <Col ClassName="d-flex flex-column justify-content-center align-items-center">
@@ -272,13 +271,12 @@ function Devices() {
                 </div>
               </Card>
 
-              <Row gutter={16} className="flex flex-wrap" style={{}}>
+              <Row gutter={16} className="flex no-padding" style={{}}>
                 <Col className="" span={10}>
                   <div className="">
                     <Card
                       hoverable
                       title="Dự báo thời tiết"
-                      size="small"
                       className="my-3 d-flex flex-column"
                       style={{ msOverflowY: "auto" }}
                     >
@@ -332,53 +330,63 @@ function Devices() {
                     </Card>
                   </div>
                 </Col>
-                <Col className="mt-3" span={14}>
-                  <Card hoverable title="Biều đồ tương quan" className="no-padding">
-                    <div className="d-flex">
-                      <ResponsiveContainer width="100%" height={230} style={{}}>
-                        <ComposedChart height={600} data={temperatureData} margin={{ top: 10 }}>
-                          <CartesianGrid strokeDasharray="7 7" />
-                          <XAxis dataKey="time" />
-                          <YAxis yAxisId="left" />
-                          <YAxis
-                            yAxisId="right"
-                            orientation="right"
-                            label={{
-                              value: "mm/h",
-                              angle: 0,
-                              position: "insideTop"
-                            }}
-                          />
-                          <Tooltip content={<Tooltiplabel />} />
-                          <Legend />
-                          <Line
-                            type="monotone"
-                            dataKey="Nhiệt độ theo ngày"
-                            stroke="#82ca9d"
-                            activeDot={{ r: 3 }}
-                            activeOpacity={1}
-                            yAxisId="left"
-                          />
-                          <Line
-                            type="monotone"
-                            dataKey="Độ ẩm theo ngày"
-                            stroke="#8884d8"
-                            activeDot={{ r: 3 }}
-                            activeOpacity={1}
-                            yAxisId="left"
-                          />
-                          <Bar dataKey="Lượng Mưa" fill="#413ea0" yAxisId="right" />
-                        </ComposedChart>
-                      </ResponsiveContainer>
-                    </div>
-                  </Card>
-
-                  <div className="">
-                    <Card
-                      className="mt-3 map-card no-padding "
-                      hoverable
-                      title={
-                        <div>
+                <Col className="mt-3" flex span={14}>
+                  <Row>
+                    <Col span={24}>
+                      <Card
+                        hoverable
+                        title="Biều đồ tương quan"
+                        className="no-padding"
+                        style={{
+                          maxHeight: "345px"
+                        }}
+                      >
+                        <ResponsiveContainer height={245}>
+                          <ComposedChart data={temperatureData} margin={{ top: 10 }}>
+                            <CartesianGrid strokeDasharray="7 7" />
+                            <XAxis dataKey="time" />
+                            <YAxis yAxisId="left" />
+                            <YAxis
+                              yAxisId="right"
+                              orientation="right"
+                              label={{
+                                value: "mm/h",
+                                angle: 0,
+                                position: "insideTop"
+                              }}
+                            />
+                            <Tooltip content={<Tooltiplabel />} />
+                            <Legend />
+                            <Line
+                              type="monotone"
+                              dataKey="Nhiệt độ theo ngày"
+                              stroke="#82ca9d"
+                              activeDot={{ r: 3 }}
+                              activeOpacity={1}
+                              yAxisId="left"
+                            />
+                            <Line
+                              type="monotone"
+                              dataKey="Độ ẩm theo ngày"
+                              stroke="#8884d8"
+                              activeDot={{ r: 3 }}
+                              activeOpacity={1}
+                              yAxisId="left"
+                            />
+                            <Bar dataKey="Lượng Mưa" fill="#413ea0" yAxisId="right" />
+                          </ComposedChart>
+                        </ResponsiveContainer>
+                      </Card>
+                    </Col>
+                  </Row>
+                  <Row align="stretch">
+                    <Col span={24}>
+                      <Card
+                        style={{ maxHeight: "345px" }}
+                        className="mt-3 no-padding "
+                        hoverable
+                        type="inner"
+                        title={
                           <div className="">
                             Chất lượng không khí (AQI):
                             <span className="ms-2">
@@ -391,44 +399,44 @@ function Devices() {
                                 : "Rất kém"}
                             </span>
                           </div>
-                        </div>
-                      }
-                    >
-                      <ResponsiveContainer width="100%" height={270}>
-                        <ComposedChart
-                          height={600}
-                          data={airdata}
-                          margin={{ top: 10 }}
-                          barGap={70}
-                          barCategoryGap="10%"
-                        >
-                          <CartesianGrid strokeDasharray="3 3 " />
-                          <XAxis ticks={["CO", "SO₂", "NO₂", "O₃", "pm2.5", "pm10"]} />
-                          <YAxis yAxisId="left" />
-                          <YAxis
-                            yAxisId="right"
-                            orientation="right"
-                            stroke="#8884d8"
-                            label={{
-                              value: "µg/m³",
-                              angle: 0,
-                              position: "insideTop"
-                            }}
-                          />
-                          <Tooltip content={<Airtooltip />} />
-                          <Legend />
-                          <Bar dataKey="CO" fill="#8884d8" yAxisId="right" barSize={30} />
+                        }
+                      >
+                        <ResponsiveContainer className="AQI" height={245}>
+                          <ComposedChart
+                            height={600}
+                            data={airdata}
+                            margin={{ top: 10 }}
+                            barGap={70}
+                            barCategoryGap="10%"
+                          >
+                            <CartesianGrid strokeDasharray="3 3 " />
+                            <XAxis ticks={["CO", "SO₂", "NO₂", "O₃", "pm2.5", "pm10"]} />
+                            <YAxis yAxisId="left" />
+                            <YAxis
+                              yAxisId="right"
+                              orientation="right"
+                              stroke="#8884d8"
+                              label={{
+                                value: "µg/m³",
+                                angle: 0,
+                                position: "insideTop"
+                              }}
+                            />
+                            <Tooltip content={<Airtooltip />} />
+                            <Legend />
+                            <Bar dataKey="CO" fill="#8884d8" yAxisId="right" barSize={30} />
 
-                          <Bar dataKey="SO₂" fill="#82ca9d" yAxisId="right" barSize={30} />
-                          <Bar dataKey="NO₂" fill="#ff7300" yAxisId="right" barSize={30} />
-                          <Bar dataKey="O₃" fill="#ff0000" yAxisId="right" barSize={30} />
+                            <Bar dataKey="SO₂" fill="#82ca9d" yAxisId="right" barSize={30} />
+                            <Bar dataKey="NO₂" fill="#ff7300" yAxisId="right" barSize={30} />
+                            <Bar dataKey="O₃" fill="#ff0000" yAxisId="right" barSize={30} />
 
-                          <Bar dataKey="pm2.5" fill="#ffc658" yAxisId="right" barSize={30} />
-                          <Bar dataKey="pm10" fill="#00ff00" yAxisId="right" barSize={30} />
-                        </ComposedChart>
-                      </ResponsiveContainer>
-                    </Card>
-                  </div>
+                            <Bar dataKey="pm2.5" fill="#ffc658" yAxisId="right" barSize={30} />
+                            <Bar dataKey="pm10" fill="#00ff00" yAxisId="right" barSize={30} />
+                          </ComposedChart>
+                        </ResponsiveContainer>
+                      </Card>
+                    </Col>
+                  </Row>
                 </Col>
               </Row>
             </div>

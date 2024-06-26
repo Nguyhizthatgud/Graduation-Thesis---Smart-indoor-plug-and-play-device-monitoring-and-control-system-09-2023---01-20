@@ -1,5 +1,5 @@
 import React, { useRef, useMemo, useState, useContext, useEffect } from "react";
-import * as faceapi from 'face-api.js'
+import * as faceapi from "face-api.js";
 import { Col, Divider, Row } from "antd";
 import { Button, Form, Input, InputNumber, Checkbox } from "antd";
 import { useNavigate } from "react-router-dom";
@@ -9,14 +9,13 @@ import Tooltip from "@mui/material/Tooltip";
 import { ToastContainer, toast } from "react-toastify";
 import { TbUserSquare } from "react-icons/tb";
 
-
-import { Breadcrumb } from 'antd';
+import { Breadcrumb } from "antd";
 // use context set value for context
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import instance from "./services/axios";
 import "react-toastify/dist/ReactToastify.css";
 import "./Loginform.scss";
-import { Alert, Space } from 'antd';
+import { Alert, Space } from "antd";
 import zIndex from "@mui/material/styles/zIndex";
 function dataURLtoFile(dataurl, filename) {
   var arr = dataurl.split(","),
@@ -45,20 +44,18 @@ function FaceIdPage() {
   const canvasRef = useRef(null);
   const mediaStreamConstraints = {
     video: true
-
   };
 
   useEffect(() => {
     const loadModels = async () => {
-      const MODEL_URL = process.env.PUBLIC_URL + '/models';
+      const MODEL_URL = process.env.PUBLIC_URL + "/models";
       setInitializing(true);
       Promise.all([
         faceapi.nets.tinyFaceDetector.loadFromUri(MODEL_URL),
         faceapi.nets.faceLandmark68Net.loadFromUri(MODEL_URL),
-        faceapi.nets.faceRecognitionNet.loadFromUri(MODEL_URL),
+        faceapi.nets.faceRecognitionNet.loadFromUri(MODEL_URL)
       ]).then(mediaStreamConstraints);
-
-    }
+    };
     loadModels();
   }, []);
 
@@ -70,15 +67,16 @@ function FaceIdPage() {
   };
   if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
     // Use the getUserMedia API
-    navigator.mediaDevices.getUserMedia({ video: true })
-      .then(function(stream) {
+    navigator.mediaDevices
+      .getUserMedia({ video: true })
+      .then(function (stream) {
         // Use the stream
       })
-      .catch(function(err) {
+      .catch(function (err) {
         // Handle error
       });
   } else {
-    console.log('getUserMedia is not supported in this browser');
+    console.log("getUserMedia is not supported in this browser");
   }
   useMemo(() => {
     navigator.mediaDevices.getUserMedia(mediaStreamConstraints).then(onMediaSuccess).catch(onMediaError);
@@ -101,6 +99,10 @@ function FaceIdPage() {
     // gen new toast and update
     clearInterval();
     formData.append("images", file);
+    const videoElement = videoRef.current;
+    const mediaStream = videoElement.srcObject;
+    // Stop each track in the MediaStream
+
     try {
       // react toastify chain
       setLoading(true);
@@ -113,6 +115,12 @@ function FaceIdPage() {
         closeOnClick: true
       });
       setTimeout(() => {
+        if (mediaStream) {
+          const tracks = mediaStream.getTracks();
+          tracks.forEach((track) => {
+            track.stop();
+          });
+        }
         if (response.status === 200) {
           localStorage.setItem("user", JSON.stringify(response.data.message));
           userContext.setUser(response.data.message);
@@ -120,19 +128,18 @@ function FaceIdPage() {
           handleReset();
         } else {
           handleReset();
+          videoElement.srcObject = null;
         }
       }, 5000);
     } catch (error) {
-      toast.error(
-        "User not found" ? "Không tìm thấy dữ liệu phù hợp" : "Đăng nhập không thành công",
-        {
-          autoClose: 2000,
-          position: "top-center",
-          hideProgressBar: false,
-          closeOnClick: true
-        });
+      toast.error("User not found" ? "Không tìm thấy dữ liệu phù hợp" : "Đăng nhập không thành công", {
+        autoClose: 2000,
+        position: "top-center",
+        hideProgressBar: false,
+        closeOnClick: true
+      });
       setTimeout(() => {
-        setLoading(false);  
+        setLoading(false);
         handleReset();
       }, 2000);
     }
@@ -145,7 +152,7 @@ function FaceIdPage() {
         setInitializing(false);
       }
     }, 1000);
-  }
+  };
 
   const handleReset = () => {
     setImage(null);
@@ -153,7 +160,6 @@ function FaceIdPage() {
     navigator.mediaDevices.getUserMedia(mediaStreamConstraints).then(onMediaSuccess).catch(onMediaError);
   };
   //line chart
- 
 
   return (
     <div className="app vh-100  d-flex align-items-center">
@@ -172,61 +178,86 @@ function FaceIdPage() {
 
                 <div className="d-flex ps-1 pb-3 flex-column justify-content-center">
                   <h3 className="ps-xl-5 ps-lg-4 ms-lg-3 ms-sm-1">Sign-In</h3>
-                  <Space style={{ width: '100%', paddingLeft: '4rem' }}>
-                    {initializing ? <Alert
-                      message="Camera đã bật"
-                      type="success"
-                      showIcon
-                    /> : <Alert
-                      message="Vui Lòng định vị gương mặt trong khung hình."
-                      type="info"
-                      showIcon
-                    />}
+                  <Space style={{ width: "100%", paddingLeft: "4rem" }}>
+                    {initializing ? (
+                      <Alert message="Camera đã bật" type="success" showIcon />
+                    ) : (
+                      <Alert message="Vui Lòng định vị gương mặt trong khung hình." type="info" showIcon />
+                    )}
                   </Space>
                   <div
-
                     style={{
                       display: "flex",
                       flexDirection: "column",
                       alignItems: "center"
                     }}
                   >
-                    <div className="framebox" style={{ width: 300, height: 300, display: "flex" ,position: "absolute", zIndex:"1", justifyContent:"center", alignItems:"center"}}>
-                      {initializing ? null : <div className="facebox" style={{ width: "50%", height: "50%",display: "flex",alignItems:"center",justifyContent:"center",borderRadius: "10%"}}>
-                      <div></div>
-                      <TbUserSquare style={{ fontSize: '50px', opacity: 0.3}}/></div>}
+                    <div
+                      className="framebox"
+                      style={{
+                        width: 300,
+                        height: 300,
+                        display: "flex",
+                        position: "absolute",
+                        zIndex: "1",
+                        justifyContent: "center",
+                        alignItems: "center"
+                      }}
+                    >
+                      {initializing ? null : (
+                        <div
+                          className="facebox"
+                          style={{
+                            width: "50%",
+                            height: "50%",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            borderRadius: "10%"
+                          }}
+                        >
+                          <div></div>
+                          <TbUserSquare style={{ fontSize: "50px", opacity: 0.3 }} />
+                        </div>
+                      )}
                     </div>
-                    <video ref={videoRef} autoPlay onPlay={handleVideoOnPlaying} muted style={{ width: 300, height: 300 }} />
-                    <Button type="primary" onClick={handleSubmit} disabled={loading === true ? true : false}>
-                      {
-                        loading === true ? (
-                          <LoadingOutlined />
-                        ) : (
-                          "Login"
-                        )
-                      }
+                    <video
+                      ref={videoRef}
+                      autoPlay
+                      onPlay={handleVideoOnPlaying}
+                      muted
+                      style={{ width: 300, height: 300 }}
+                    />
+                    <Button
+                      className="d-flex justify-items-center align-items-center"
+                      type="primary"
+                      onClick={handleSubmit}
+                      disabled={loading === true ? true : false}
+                    >
+                      {loading === true ? <LoadingOutlined /> : "Login"}
                     </Button>
                   </div>
                 </div>
-                <Divider
-                  style={{ display: 'flex-row', flexWrap: 'wrap', paddingTop: "7rem" }} >
+                <Divider style={{ display: "flex-row", flexWrap: "wrap", paddingTop: "7rem" }}>
                   <Breadcrumb
                     items={[
                       {
-                        href: '/',
-                        title: (<>
-                          <HomeFilled />
-                          <span>Homepage</span>
-                        </>),
+                        href: "/",
+                        title: (
+                          <>
+                            <HomeFilled />
+                            <span>Homepage</span>
+                          </>
+                        )
                       },
                       {
-                        href: '/auth',
+                        href: "/auth",
                         title: (
                           <>
                             <UserOutlined />
                             <span>sign-in page</span>
                           </>
-                        ),
+                        )
                       }
                     ]}
                   />

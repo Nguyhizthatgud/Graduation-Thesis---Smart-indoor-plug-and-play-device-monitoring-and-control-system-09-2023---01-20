@@ -118,7 +118,7 @@ function Credential({ data, setData }) {
         prevPassword: values.prevPassword,
         password: values.password
       });
-      toast.success("Change password success", {
+      toast.success("Thay đổi mật khẩu thành công!", {
         autoClose: 5000,
         position: "top-center",
         hideProgressBar: false,
@@ -126,7 +126,7 @@ function Credential({ data, setData }) {
       });
       setIsModalOpen1(false);
     } catch (error) {
-      toast.error(error.response?.data?.message || "Change password fail", {
+      toast.error(error.response?.data?.message || "Thay đổi mật khấu thất bại", {
         autoClose: 5000,
         position: "top-center",
         hideProgressBar: false,
